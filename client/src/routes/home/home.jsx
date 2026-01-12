@@ -1,6 +1,8 @@
 import React from 'react';
 import Header from '../../components/header/header';
+import Footer from '../../components/footer/footer';
 import Timeline from '../../components/timeline/timeline';
+import Links from '../../components/links/links';
 import headshot from '../../assets/headshot.jpeg';
 import calpolyLogo from '../../assets/calpoly.png';
 import cuestaLogo from '../../assets/cuesta.jpeg';
@@ -38,7 +40,7 @@ function Home() {
         </div>
       </section>
 
-      <section className="education-section">
+      {/* <section className="education-section">
         <div className="education-content">
           <h2 className="education-title">Education</h2>
           <div className="education-list">
@@ -60,7 +62,7 @@ function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <section className="journey-section">
         <div className="journey-content">
@@ -68,6 +70,10 @@ function Home() {
           <Timeline />
         </div>
       </section>
+
+      <Links />
+
+      <Footer />
     </div>
   );
 }
