@@ -24,15 +24,17 @@ function Resume() {
       <Header />
       <section className="download-section">
         <div className="download-content">
-          <div className="download-button-wrapper gradient-border-wrapper">
-            <span className="gradient-border gradient-border-top"></span>
-            <span className="gradient-border gradient-border-right"></span>
-            <span className="gradient-border gradient-border-bottom"></span>
-            <span className="gradient-border gradient-border-left"></span>
-            <button className="download-button" onClick={handleDownload}>
-              Download My Resume
-            </button>
-          </div>
+          <button
+            type="button"
+            className="download-button-3d"
+            onClick={handleDownload}
+            aria-label="Download resume PDF"
+          >
+            <span>Download My Resume</span>
+            <span>Download My Resume</span>
+            <span>Download My Resume</span>
+            <span>Download My Resume</span>
+          </button>
         </div>
       </section>
       <section className="education-section">

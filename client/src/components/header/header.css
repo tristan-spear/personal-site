@@ -13,9 +13,8 @@
 }
 
 .header-container {
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 1.25rem 3rem;
+  width: 100%;
+  padding: 1.25rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -101,8 +100,8 @@
   bottom: -2px;
   left: 0;
   right: 0;
-  height: 1px;
-  background: #FFD1DC;
+  height: 2px;
+  background: linear-gradient(to right, #ff5757, rgb(107, 168, 255));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);

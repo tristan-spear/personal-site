@@ -121,7 +121,28 @@
     radial-gradient(3px 3px at 78% 58%, rgba(255, 255, 255, 0.95), transparent),
     radial-gradient(2px 2px at 85% 66%, rgba(255, 255, 255, 1), transparent),
     radial-gradient(2px 2px at 92% 74%, rgba(255, 255, 255, 0.85), transparent),
-    radial-gradient(3px 3px at 99% 82%, rgba(255, 255, 255, 0.95), transparent);
+    radial-gradient(3px 3px at 99% 82%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 17% 11%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(3px 3px at 38% 24%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 59% 42%, rgba(255, 255, 255, 1), transparent),
+    radial-gradient(2px 2px at 73% 64%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(3px 3px at 24% 85%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 91% 52%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(2px 2px at 2% 66%, rgba(255, 255, 255, 1), transparent),
+    radial-gradient(3px 3px at 10% 4%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 45% 29%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(2px 2px at 77% 13%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(3px 3px at 31% 77%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 86% 89%, rgba(255, 255, 255, 1), transparent),
+    radial-gradient(2px 2px at 52% 5%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(3px 3px at 15% 53%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 68% 31%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(2px 2px at 94% 45%, rgba(255, 255, 255, 1), transparent),
+    radial-gradient(3px 3px at 39% 98%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 8% 37%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(2px 2px at 61% 76%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(3px 3px at 23% 16%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 70% 92%, rgba(255, 255, 255, 1), transparent);
   animation: spaceMoveTwinkle 50s ease-in-out infinite;
 }
 
@@ -201,7 +222,28 @@
     radial-gradient(2px 2px at 98% 74%, rgba(255, 255, 255, 0.85), transparent),
     radial-gradient(2px 2px at 5% 82%, rgba(255, 255, 255, 1), transparent),
     radial-gradient(3px 3px at 12% 90%, rgba(255, 255, 255, 0.95), transparent),
-    radial-gradient(2px 2px at 19% 98%, rgba(255, 255, 255, 0.9), transparent);
+    radial-gradient(2px 2px at 19% 98%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(2px 2px at 31% 14%, rgba(255, 255, 255, 1), transparent),
+    radial-gradient(3px 3px at 52% 33%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 66% 58%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(2px 2px at 14% 72%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(3px 3px at 79% 41%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 47% 95%, rgba(255, 255, 255, 1), transparent),
+    radial-gradient(2px 2px at 3% 61%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(3px 3px at 11% 8%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 44% 35%, rgba(255, 255, 255, 1), transparent),
+    radial-gradient(2px 2px at 75% 19%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(3px 3px at 28% 81%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 89% 93%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(2px 2px at 55% 11%, rgba(255, 255, 255, 1), transparent),
+    radial-gradient(3px 3px at 19% 49%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 62% 27%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(2px 2px at 96% 39%, rgba(255, 255, 255, 0.9), transparent),
+    radial-gradient(3px 3px at 36% 88%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 7% 43%, rgba(255, 255, 255, 1), transparent),
+    radial-gradient(2px 2px at 58% 69%, rgba(255, 255, 255, 0.85), transparent),
+    radial-gradient(3px 3px at 21% 22%, rgba(255, 255, 255, 0.95), transparent),
+    radial-gradient(2px 2px at 82% 96%, rgba(255, 255, 255, 0.9), transparent);
   animation: spaceMoveTwinkleReverse 70s ease-in-out infinite;
 }
 

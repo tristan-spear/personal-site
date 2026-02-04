@@ -21,43 +21,67 @@
   justify-content: center;
 }
 
-.download-button-wrapper {
-  display: inline-block;
-  padding: 2px;
-}
-
-.download-button-wrapper.gradient-border-wrapper {
-  border: 1px solid rgba(255, 255, 255, 0.5);
-}
-
-.download-button {
-  background: transparent;
+/* 3D flip download button */
+.download-button-3d {
+  position: relative;
+  width: 300px;
+  height: 64px;
+  padding: 10px;
   border: none;
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: 400;
-  padding: 1rem 2.5rem;
+  background: none;
   cursor: pointer;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  transition: transform 4s;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateX(0deg);
+}
+
+.download-button-3d:hover {
+  transform: perspective(1000px) rotateX(360deg);
+}
+
+.download-button-3d span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1.75rem;
+  color: #ffffff;
+  background: transparent;
   text-transform: uppercase;
+  font-size: 1.125rem;
+  font-weight: 600;
   letter-spacing: 0.15em;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-  overflow: visible;
-  z-index: 1;
+  white-space: nowrap;
+  transition: 0.5s;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-sizing: border-box;
+  backface-visibility: hidden;
 }
 
-.download-button-wrapper:hover .download-button {
-  color: rgb(107, 168, 255);
-  transform: translateY(-2px);
+.download-button-3d:hover span {
+  color: #ffffff;
+  background: rgba(107, 168, 255, 0.8);
 }
 
-.download-button:active {
-  transform: translateY(0);
+.download-button-3d span:nth-child(1) {
+  transform: rotateX(360deg) translateZ(32px);
 }
 
-.download-button-wrapper:hover .download-button:active {
-  transform: translateY(0);
+.download-button-3d span:nth-child(2) {
+  transform: rotateX(270deg) translateZ(32px);
+}
+
+.download-button-3d span:nth-child(3) {
+  transform: rotateX(180deg) translateZ(32px);
+}
+
+.download-button-3d span:nth-child(4) {
+  transform: rotateX(90deg) translateZ(32px);
 }
 
 .education-section {
@@ -152,9 +176,29 @@
     padding: 5rem 2rem;
   }
 
-  .download-button {
-    font-size: 0.875rem;
-    padding: 0.875rem 2rem;
+  .download-button-3d {
+    width: 240px;
+    height: 58px;
+  }
+
+  .download-button-3d span {
+    font-size: 1rem;
+  }
+
+  .download-button-3d span:nth-child(1) {
+    transform: rotateX(360deg) translateZ(29px);
+  }
+
+  .download-button-3d span:nth-child(2) {
+    transform: rotateX(270deg) translateZ(29px);
+  }
+
+  .download-button-3d span:nth-child(3) {
+    transform: rotateX(180deg) translateZ(29px);
+  }
+
+  .download-button-3d span:nth-child(4) {
+    transform: rotateX(90deg) translateZ(29px);
   }
 
   .education-section {
@@ -167,10 +211,30 @@
     padding: 4rem 1.5rem;
   }
 
-  .download-button {
-    font-size: 0.8125rem;
-    padding: 0.75rem 1.5rem;
+  .download-button-3d {
+    width: 220px;
+    height: 54px;
+  }
+
+  .download-button-3d span {
+    font-size: 0.9375rem;
     letter-spacing: 0.1em;
+  }
+
+  .download-button-3d span:nth-child(1) {
+    transform: rotateX(360deg) translateZ(27px);
+  }
+
+  .download-button-3d span:nth-child(2) {
+    transform: rotateX(270deg) translateZ(27px);
+  }
+
+  .download-button-3d span:nth-child(3) {
+    transform: rotateX(180deg) translateZ(27px);
+  }
+
+  .download-button-3d span:nth-child(4) {
+    transform: rotateX(90deg) translateZ(27px);
   }
 
   .education-section {
