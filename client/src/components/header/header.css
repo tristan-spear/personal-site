@@ -32,15 +32,17 @@
   height: 56px;
   border-radius: 0;
   background: transparent;
-  border: 2px solid #ffffff;
+  padding: 2px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: visible;
 }
 
-.header-logo:hover {
-  transform: none;
-  border-color: #FFD1DC;
-  background: rgba(255, 209, 220, 0.1);
+.header-logo.gradient-border-wrapper {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.header-logo:hover .logo-text {
+  color: rgb(107, 168, 255);
 }
 
 .logo-text {
@@ -51,10 +53,6 @@
   z-index: 2;
   letter-spacing: 0.5px;
   transition: color 0.3s ease;
-}
-
-.header-logo:hover .logo-text {
-  color: #FFD1DC;
 }
 
 .logo-glow {

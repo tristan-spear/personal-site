@@ -15,7 +15,11 @@ function Header() {
   return (
     <header className="header">
       <div className="header-container">
-        <Link to="/" className="header-logo">
+        <Link to="/" className="header-logo gradient-border-wrapper">
+          <span className="gradient-border gradient-border-top"></span>
+          <span className="gradient-border gradient-border-right"></span>
+          <span className="gradient-border gradient-border-bottom"></span>
+          <span className="gradient-border gradient-border-left"></span>
           <span className="logo-text">TS</span>
           <div className="logo-glow"></div>
         </Link>

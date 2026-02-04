@@ -23,7 +23,7 @@ function Timeline() {
       description: "Designing and developing websites for Cal Poly Academic Innovations & Programs",
       date: "January 2026",
       thumbnail: learnByDoing,
-      color: "#00FF00", // Bright lime green
+      color: "#5DFFBF", // Mint teal
       icon: "💼",
     },
     {
@@ -31,7 +31,7 @@ function Timeline() {
       description: "Building full stack applications for non-profit organizations",
       date: "September 2025",
       thumbnail: hack4impactLogo,
-      color: "#FF0066", // Bright pink/magenta
+      color: "#FF7BC4", // Pink
       icon: "🌍",
     },
     {
@@ -39,7 +39,7 @@ function Timeline() {
       description: "Graduated Cuesta College, and began studying Software Engineering at Cal Poly SLO",
       date: "July 2025",
       thumbnail: learnByDoing,
-      color: "#9D00FF", // Bright purple
+      color: "#7B75FF", // Lavender
       icon: "🚀",
     },
     // {
@@ -55,7 +55,7 @@ function Timeline() {
       description: "Completed Angela Yu's Full Stack Web Development Course",
       date: "June 2025",
       thumbnail: udemyLogo,
-      color: "#FFEB00", // Bright yellow
+      color: "#FFF066", // Yellow
       icon: "📚",
     },
     {
@@ -63,15 +63,23 @@ function Timeline() {
       description: "Teaching robotics and programming to students ages 10-13",
       date: "June 2024",
       thumbnail: stanfordLogo,
-      color: "#FF6B00", // Bright orange
+      color: "#6BA8FF", // Sky blue
       icon: "🤖",
+    },
+    {
+      title: "Joined AI Research Project at Cal Poly SLO",
+      description: "Began working as an AI Researcher with other students at Cal Poly",
+      date: "March 2024",
+      thumbnail: learnByDoing,
+      color: "#FF7BC4", // Pink
+      icon: "🧠",
     },
     {
       title: "Got hired as a tutor at Cuesta College",
       description: "Tutoring students in computer science, mathematics, and physics",
       date: "January 2024",
       thumbnail: cuestaLogo,
-      color: "#FF00E5", // Bright magenta
+      color: "#FFF066", // Yellow
       icon: "👨‍🏫",
     },
     {
@@ -79,7 +87,7 @@ function Timeline() {
       description: "Began pursuing Associates of Science in Math & Computer Science",
       date: "August 2022",
       thumbnail: cuestaLogo,
-      color: "#00FF88", // Bright green
+      color: "#7B75FF", // Lavender
       icon: "💻",
     },
   ];

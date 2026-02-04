@@ -5,7 +5,7 @@ function Links() {
   return (
     <section className="links-section">
       <div className="links-content">
-        <h2 className="links-title">Links</h2>
+        <h2 className="links-title hover-underline">Links</h2>
         <ul className="social-links">
           <li>
             <a href="https://github.com/tristan-spear" target="_blank" rel="noopener noreferrer">

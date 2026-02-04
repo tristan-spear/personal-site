@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import Timeline from '../../components/timeline/timeline';
@@ -10,6 +10,25 @@ import learnByDoing from '../../assets/learn.png';
 import './home.css';
 
 function Home() {
+  const fullName = "Tristan Spear";
+  const [displayedName, setDisplayedName] = useState("");
+  const [typingComplete, setTypingComplete] = useState(false);
+
+  useEffect(() => {
+    let index = 0;
+    const typeInterval = setInterval(() => {
+      if (index < fullName.length) {
+        setDisplayedName(fullName.slice(0, index + 1));
+        index++;
+      } else {
+        setTypingComplete(true);
+        clearInterval(typeInterval);
+      }
+    }, 112);
+
+    return () => clearInterval(typeInterval);
+  }, []);
+
   return (
     <div className="home">
       <Header />
@@ -17,9 +36,12 @@ function Home() {
         <div className="space-animation"></div>
         <div className="hero-content">
           <div className="hero-text">
-            <h1 className="hero-name">Tristan Spear</h1>
-            <p className="hero-subtitle">
-              Hi, I'm Tristan, I am a Junior, studying Software Engineering at Cal Poly SLO 🐴
+            <h1 className="hero-name">
+              {displayedName}
+              <span className={`hero-cursor ${typingComplete ? 'hero-cursor-blink' : ''}`}>|</span>
+            </h1>
+            <p className={`hero-subtitle ${typingComplete ? 'hero-subtitle-visible' : ''}`}>
+              Hi, I'm <strong>Tristan</strong>, I am a Junior, studying <br/><strong>Software Engineering</strong> at Cal Poly SLO 🐎
             </p>
           </div>
           <div className="hero-image-container">
@@ -30,12 +52,25 @@ function Home() {
       
       <section className="about-section">
         <div className="about-content">
-          <h2 className="about-title">About</h2>
+          <h2 className="about-title hover-underline">About Me</h2>
           <p className="about-text">
-            Welcome to my personal website! I'm a Software Engineering student passionate about 
-            creating innovative solutions and exploring the vast universe of technology. Through 
-            my studies and projects, I'm constantly learning and growing in the field of software 
-            development.
+          Welcome to my personal website! I’m a Software Engineering student 
+          who enjoys building creative solutions and diving into new technologies. 
+          I’m currently looking for internship or part-time opportunities in software 
+          development, and I’m always learning through my studies and hands-on projects.
+          </p>
+          <br />
+          <br />
+          <p className="about-text">
+            I grew up on the Central Coast, in Arroyo Grande, California.
+            I spend my time studying, coding, reading, going to the gym, playing sports,
+            and hanging out with my pets and family.
+          </p>
+          <br />
+          <br />
+          <p className="about-text">
+            I'm always open to respond to messages
+            or meet for a coffee chat. Feel free to reach out to me or connect! 
           </p>
         </div>
       </section>
@@ -66,7 +101,7 @@ function Home() {
 
       <section className="journey-section">
         <div className="journey-content">
-          <h2 className="journey-title">Developer Journey</h2>
+          <h2 className="journey-title hover-underline">Professional Journey</h2>
           <Timeline />
         </div>
       </section>
