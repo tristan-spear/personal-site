@@ -15,13 +15,17 @@ function Header() {
   return (
     <header className="header">
       <div className="header-container">
-        <Link to="/" className="header-logo gradient-border-wrapper">
-          <span className="gradient-border gradient-border-top"></span>
-          <span className="gradient-border gradient-border-right"></span>
-          <span className="gradient-border gradient-border-bottom"></span>
-          <span className="gradient-border gradient-border-left"></span>
-          <span className="logo-text">TS</span>
-          <div className="logo-glow"></div>
+        <Link to="/" className="header-logo logo-cube-link" aria-label="Home">
+          <div className="logo-cube-container">
+            <div className="logo-cube">
+              <div className="logo-cube-face front">TS</div>
+              <div className="logo-cube-face back">TS</div>
+              <div className="logo-cube-face right">TS</div>
+              <div className="logo-cube-face left">TS</div>
+              <div className="logo-cube-face top">TS</div>
+              <div className="logo-cube-face bottom">TS</div>
+            </div>
+          </div>
         </Link>
         
         <nav className="header-nav">

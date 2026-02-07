@@ -15,10 +15,9 @@ function ExperienceItem({ experience }) {
         </div>
         <div className="experience-location">{experience.location}</div>
         <ul className="experience-bullets">
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
+          {(experience.bullets || []).map((bullet, i) => (
+            <li key={i}>{bullet}</li>
+          ))}
         </ul>
       </div>
     </div>

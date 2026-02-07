@@ -1,7 +1,4 @@
 import React from 'react';
-import Header from '../../components/header/header';
-import Footer from '../../components/footer/footer';
-import Links from '../../components/links/links';
 import Experience from '../../components/experience/experience';
 import Skills from '../../components/skills/skills';
 import learnByDoing from '../../assets/learn.png';
@@ -21,7 +18,6 @@ function Resume() {
 
   return (
     <div className="resume">
-      <Header />
       <section className="download-section">
         <div className="download-content">
           <button
@@ -62,8 +58,6 @@ function Resume() {
       </section>
       <Experience />
       <Skills />
-      <Links />
-      <Footer />
     </div>
   );
 }

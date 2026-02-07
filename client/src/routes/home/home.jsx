@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Header from '../../components/header/header';
-import Footer from '../../components/footer/footer';
 import Timeline from '../../components/timeline/timeline';
-import Links from '../../components/links/links';
 import headshot from '../../assets/headshot.jpeg';
 import calpolyLogo from '../../assets/calpoly.png';
 import cuestaLogo from '../../assets/cuesta.jpeg';
@@ -31,7 +28,6 @@ function Home() {
 
   return (
     <div className="home">
-      <Header />
       <section className="hero-section">
         <div className="space-animation"></div>
         <div className="hero-content">
@@ -105,10 +101,6 @@ function Home() {
           <Timeline />
         </div>
       </section>
-
-      <Links />
-
-      <Footer />
     </div>
   );
 }

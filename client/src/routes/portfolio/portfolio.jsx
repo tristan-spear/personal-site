@@ -1,16 +1,11 @@
 import React from 'react';
-import Header from '../../components/header/header';
-import Footer from '../../components/footer/footer';
-import Links from '../../components/links/links';
+import Experience from '../../components/experience/experience';
 import './portfolio.css';
-
 
 function Portfolio() {
   return (
     <div className="portfolio">
-      <Header />
-      <Links />
-      <Footer />
+      <Experience />
     </div>
   );
 }
