@@ -3,7 +3,7 @@ import Timeline from '../../components/timeline/timeline';
 import headshot from '../../assets/headshot.jpeg';
 import calpolyLogo from '../../assets/calpoly.png';
 import cuestaLogo from '../../assets/cuesta.jpeg';
-import learnByDoing from '../../assets/learn.png';
+import learnByDoing from '../../assets/cp.png';
 import './home.css';
 
 function Home() {
@@ -12,18 +12,24 @@ function Home() {
   const [typingComplete, setTypingComplete] = useState(false);
 
   useEffect(() => {
-    let index = 0;
-    const typeInterval = setInterval(() => {
-      if (index < fullName.length) {
-        setDisplayedName(fullName.slice(0, index + 1));
-        index++;
-      } else {
-        setTypingComplete(true);
-        clearInterval(typeInterval);
-      }
-    }, 112);
+    let typeInterval = null;
+    const startDelay = setTimeout(() => {
+      let index = 0;
+      typeInterval = setInterval(() => {
+        if (index < fullName.length) {
+          setDisplayedName(fullName.slice(0, index + 1));
+          index++;
+        } else {
+          setTypingComplete(true);
+          clearInterval(typeInterval);
+        }
+      }, 112);
+    }, 50);
 
-    return () => clearInterval(typeInterval);
+    return () => {
+      clearTimeout(startDelay);
+      if (typeInterval) clearInterval(typeInterval);
+    };
   }, []);
 
   return (

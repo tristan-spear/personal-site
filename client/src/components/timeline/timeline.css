@@ -152,6 +152,16 @@
   background: #ffffff;
 }
 
+.timeline-thumbnail.calpoly-thumbnail {
+  background: #ffffff;
+}
+
+.timeline-thumbnail.calpoly-thumbnail img {
+  object-fit: contain;
+  object-position: center;
+  transform: translateY(-4px);
+}
+
 .timeline-thumbnail::before {
   content: '';
   position: absolute;
@@ -188,8 +198,16 @@
               0 0 30px var(--node-color, #ffffff);
 }
 
+.timeline-thumbnail.calpoly-thumbnail.hovered {
+  transform: scale(1.15) rotate(5deg);
+}
+
 .timeline-thumbnail.hovered img {
   transform: scale(1.1);
+}
+
+.timeline-thumbnail.calpoly-thumbnail.hovered img {
+  transform: translateY(-4px) scale(1.1);
 }
 
 .thumbnail-icon {

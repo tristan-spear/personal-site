@@ -3,7 +3,7 @@ import Experience from '../../components/experience/experience';
 import Skills from '../../components/skills/skills';
 import learnByDoing from '../../assets/learn.png';
 import cuestaLogo from '../../assets/cuesta.jpeg';
-import resumePdf from '../../assets/Spear, Tristan - Digital Resume - Jan 2026.pdf';
+import resumePdf from '../../assets/Spear, Tristan - Digital Resume - Feb 2026.pdf';
 import './resume.css';
 
 function Resume() {

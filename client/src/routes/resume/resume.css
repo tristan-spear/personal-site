@@ -124,10 +124,13 @@
   height: 110px;
   border-radius: 50%;
   border: 2px solid #ffffff;
-  object-fit: scale-down;
+  object-fit: contain;
+  object-position: center;
+  transform: translateY(-10px) scale(1.1);
   flex-shrink: 0;
   background: #ffffff;
   transform: scale(0.90);
+  padding: 8px;
 }
 
 .education-info {

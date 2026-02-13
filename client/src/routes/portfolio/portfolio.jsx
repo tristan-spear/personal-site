@@ -5,7 +5,7 @@ import './portfolio.css';
 function Portfolio() {
   return (
     <div className="portfolio">
-      <Experience />
+      
     </div>
   );
 }

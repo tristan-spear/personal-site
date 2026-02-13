@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import learnByDoing from '../../assets/learn.png';
+import learnByDoing from '../../assets/cp.png';
 import cuestaLogo from '../../assets/cuesta.jpeg';
 import stanfordLogo from '../../assets/stanford.png';
 import udemyLogo from '../../assets/udemy.png';
@@ -111,7 +111,7 @@ function Timeline() {
               <div className="timeline-node-glow"></div>
             </div>
             <div 
-              className={`timeline-thumbnail ${hoveredIndex === index ? 'hovered' : ''} ${event.title.includes('Udemy') ? 'udemy-thumbnail' : ''}`}
+              className={`timeline-thumbnail ${hoveredIndex === index ? 'hovered' : ''} ${event.title.includes('Udemy') ? 'udemy-thumbnail' : ''} ${event.thumbnail === learnByDoing ? 'calpoly-thumbnail' : ''}`}
               style={{ '--node-color': event.color }}
             >
               <img src={event.thumbnail} alt={event.title} />
