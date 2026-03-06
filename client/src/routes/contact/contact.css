@@ -27,7 +27,7 @@
 }
 
 .contact-hero {
-  padding: 1.5rem 3rem 1.25rem;
+  padding: 4rem 3rem 1.25rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   text-align: center;
   opacity: 0;
@@ -90,6 +90,7 @@
   padding: 2.5rem;
   background: rgba(255, 255, 255, 0.02);
   border: 2px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
   transition: box-shadow 1.5s ease, border-color 1.5s ease;
 }
 
@@ -98,6 +99,7 @@
   position: absolute;
   inset: -2px;
   background: linear-gradient(to right, #ff5757, rgb(107, 168, 255));
+  border-radius: 14px;
   z-index: -2;
   opacity: 0;
   transition: opacity 1.5s ease;
@@ -109,6 +111,7 @@
   position: absolute;
   inset: 2px;
   background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
   z-index: -1;
   pointer-events: none;
 }
@@ -156,6 +159,7 @@
 .contact-input-wrap {
   position: relative;
   border: 2px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
   transition: box-shadow 1.5s ease, border-color 1.5s ease;
 }
 
@@ -164,6 +168,7 @@
   position: absolute;
   inset: -2px;
   background: linear-gradient(to right, #ff5757, rgb(107, 168, 255));
+  border-radius: 10px;
   z-index: -2;
   opacity: 0;
   transition: opacity 1.5s ease;
@@ -175,6 +180,7 @@
   position: absolute;
   inset: 2px;
   background: rgba(255, 255, 255, 0.04);
+  border-radius: 6px;
   z-index: -1;
   pointer-events: none;
 }
@@ -208,7 +214,7 @@
   color: #ffffff;
   background: rgba(255, 255, 255, 0.04);
   border: none;
-  border-radius: 0;
+  border-radius: 6px;
   transition: box-shadow 1.5s ease, background 0.25s ease;
 }
 
@@ -269,6 +275,7 @@
   color: #ffffff;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
   cursor: pointer;
   overflow: visible;
   transition: color 1.5s ease, border-color 1.5s ease, box-shadow 1.5s ease;
@@ -279,6 +286,7 @@
   position: absolute;
   inset: -2px;
   background: linear-gradient(to right, #ff5757, rgb(107, 168, 255));
+  border-radius: 10px;
   z-index: -2;
   opacity: 0;
   transition: opacity 1.5s ease;
@@ -290,6 +298,7 @@
   position: absolute;
   inset: 2px;
   background: #000000;
+  border-radius: 6px;
   z-index: -1;
   pointer-events: none;
 }
@@ -329,28 +338,49 @@
 }
 
 /* Direct email section (below form) */
+.contact-direct {
+  margin-top: 3.5rem;
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contact-direct-title {
+  font-family: 'Outfit', -apple-system, sans-serif;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+}
+
 .contact-direct-intro {
-  font-size: 1rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 2rem 0 0.5rem 0;
+  font-size: 1.0625rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0 0 1.25rem 0;
   line-height: 1.5;
 }
 
 .contact-direct-email {
-  font-size: 1rem;
+  display: inline-block;
+  font-size: 1.25rem;
+  font-weight: 500;
   color: rgb(107, 168, 255);
   text-decoration: none;
-  transition: color 0.2s ease, text-decoration 0.2s ease;
+  padding: 0.5rem 0;
+  border-bottom: 2px solid rgba(107, 168, 255, 0.4);
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .contact-direct-email:hover {
-  color: #ff5757;
-  text-decoration: underline;
+  color: rgba(107, 168, 255, 1);
+  border-bottom-color: rgb(107, 168, 255);
 }
 
 @media (max-width: 768px) {
   .contact-hero {
-    padding: 1.25rem 1.5rem 1rem;
+    padding: 2.25rem 1.5rem 1rem;
   }
 
   .contact-section-title {
@@ -364,6 +394,11 @@
 
   .contact-form-wrapper {
     padding: 1.75rem;
+  }
+
+  .contact-direct {
+    margin-top: 2.5rem;
+    padding: 2rem 1rem;
   }
 
   .contact-row {

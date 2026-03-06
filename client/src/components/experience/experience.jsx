@@ -10,11 +10,15 @@ function Experience() {
   const experiences = [
     {
       title: "Web Developer",
-      company: "—",
-      location: "—",
-      date: "—",
+      company: "Cal Poly AIP (Academic Innovations & Programs)",
+      location: "San Luis Obispo, CA",
+      date: "Jan. 2026 - Present",
       thumbnail: learnByDoing,
-      bullets: [],
+      bullets: [
+        "Work under Cal Poly AIP to deliver various web projects under multiple departments across Cal Poly",
+        "Collaborate with Amazon, AWS, and DxHub staff to deliver an internal dashboard showing Canvas course accessibility across Cal Poly at the college and department level, using real datasets to help meet CSU system-wide accessibility standards with UDOIT, Athena, and AWS QuickSight",
+        "Use Drupal 7 and other web content management services to deliver official university webpages for departments and events",
+      ],
     },
     {
       title: "Full Stack Developer",

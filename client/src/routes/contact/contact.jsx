@@ -131,13 +131,16 @@ function Contact() {
               </div>
             </form>
           </div>
-          <p className="contact-direct-intro">Or contact me directly with my email.</p>
-          <a
-            href={`mailto:${import.meta.env.VITE_CONTACT_EMAIL || ''}`}
-            className="contact-direct-email"
-          >
-            {import.meta.env.VITE_CONTACT_EMAIL || 'your@email.com'}
-          </a>
+          <section className="contact-direct">
+            <h2 className="contact-direct-title">Or contact me directly at :</h2>
+            {/* <p className="contact-direct-intro">Reach out at my email below.</p> */}
+            <a
+              href={`mailto:${import.meta.env.VITE_CONTACT_EMAIL || ''}`}
+              className="contact-direct-email"
+            >
+              {import.meta.env.VITE_CONTACT_EMAIL || 'your@email.com'}
+            </a>
+          </section>
         </div>
       </section>
     </div>

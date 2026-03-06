@@ -20,7 +20,7 @@ function Timeline() {
     // },
     {
       title: "Hired as a Web Developer at Cal Poly AIP",
-      description: "Designing and developing websites for Cal Poly Academic Innovations & Programs",
+      description: "Delivering web projects across departments; building a Canvas accessibility dashboard with AWS/DxHub; maintaining official university pages with Drupal 7",
       date: "January 2026",
       thumbnail: learnByDoing,
       color: "#5DFFBF", // Mint teal
