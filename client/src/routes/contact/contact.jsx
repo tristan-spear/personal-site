@@ -1,15 +1,43 @@
 import React, { useState } from 'react';
 import './contact.css';
 
+const API_CONTACT = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL.replace(/\/$/, '')}/contact`
+  : '/api/contact';
+
 function Contact() {
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
+  const [status, setStatus] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Functionality to be implemented later
+    setStatus(null);
+    setIsSubmitting(true);
+    try {
+      const res = await fetch(API_CONTACT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, subject, message }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setStatus({ type: 'error', text: data.error || 'Something went wrong.' });
+        return;
+      }
+      setStatus({ type: 'success', text: 'Message sent! I\'ll get back to you soon.' });
+      setEmail('');
+      setName('');
+      setSubject('');
+      setMessage('');
+    } catch {
+      setStatus({ type: 'error', text: 'Could not send. Check your connection and try again.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -78,68 +106,38 @@ function Contact() {
                   />
                 </div>
               </div>
+              {status && (
+                <p
+                  className={
+                    status.type === 'success'
+                      ? 'contact-status contact-status-success'
+                      : 'contact-status contact-status-error'
+                  }
+                  role="alert"
+                >
+                  {status.text}
+                </p>
+              )}
               <div className="contact-submit-wrap">
-                <button type="submit" className="contact-submit">
-                  <span className="contact-submit-text">Send message</span>
+                <button
+                  type="submit"
+                  className="contact-submit"
+                  disabled={isSubmitting}
+                >
+                  <span className="contact-submit-text">
+                    {isSubmitting ? 'Sending...' : 'Send message'}
+                  </span>
                 </button>
               </div>
             </form>
           </div>
-          <div className="contact-cube-wrap">
-            <div className="contact-cube-container">
-              <div className="contact-cube">
-                <div style={{ '--x': -1, '--y': 0 }}>
-                  <span style={{ '--i': 3 }} />
-                  <span style={{ '--i': 2 }} />
-                  <span style={{ '--i': 1 }} />
-                </div>
-                <div style={{ '--x': 0, '--y': 0 }}>
-                  <span style={{ '--i': 3 }} />
-                  <span style={{ '--i': 2 }} />
-                  <span style={{ '--i': 1 }} />
-                </div>
-                <div style={{ '--x': 1, '--y': 0 }}>
-                  <span style={{ '--i': 3 }} />
-                  <span style={{ '--i': 2 }} />
-                  <span style={{ '--i': 1 }} />
-                </div>
-              </div>
-              <div className="contact-cube">
-                <div style={{ '--x': -1, '--y': 0 }}>
-                  <span style={{ '--i': 3 }} />
-                  <span style={{ '--i': 2 }} />
-                  <span style={{ '--i': 1 }} />
-                </div>
-                <div style={{ '--x': 0, '--y': 0 }}>
-                  <span style={{ '--i': 3 }} />
-                  <span style={{ '--i': 2 }} />
-                  <span style={{ '--i': 1 }} />
-                </div>
-                <div style={{ '--x': 1, '--y': 0 }}>
-                  <span style={{ '--i': 3 }} />
-                  <span style={{ '--i': 2 }} />
-                  <span style={{ '--i': 1 }} />
-                </div>
-              </div>
-              <div className="contact-cube">
-                <div style={{ '--x': -1, '--y': 0 }}>
-                  <span style={{ '--i': 3 }} />
-                  <span style={{ '--i': 2 }} />
-                  <span style={{ '--i': 1 }} />
-                </div>
-                <div style={{ '--x': 0, '--y': 0 }}>
-                  <span style={{ '--i': 3 }} />
-                  <span style={{ '--i': 2 }} />
-                  <span style={{ '--i': 1 }} />
-                </div>
-                <div style={{ '--x': 1, '--y': 0 }}>
-                  <span style={{ '--i': 3 }} />
-                  <span style={{ '--i': 2 }} />
-                  <span style={{ '--i': 1 }} />
-                </div>
-              </div>
-            </div>
-          </div>
+          <p className="contact-direct-intro">Or contact me directly with my email.</p>
+          <a
+            href={`mailto:${import.meta.env.VITE_CONTACT_EMAIL || ''}`}
+            className="contact-direct-email"
+          >
+            {import.meta.env.VITE_CONTACT_EMAIL || 'your@email.com'}
+          </a>
         </div>
       </section>
     </div>

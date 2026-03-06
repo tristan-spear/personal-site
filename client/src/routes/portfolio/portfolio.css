@@ -1,0 +1,69 @@
+.portfolio {
+  width: 100%;
+  min-height: 100vh;
+  background: #000000;
+  color: #ffffff;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.portfolio-hero {
+  padding: 4rem 3rem 2rem;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.portfolio-hero-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 300;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.04em;
+  line-height: 1.2;
+  color: #ffffff;
+  font-family: 'Outfit', -apple-system, sans-serif;
+}
+
+.portfolio-hero-intro {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+  line-height: 1.5;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.portfolio-section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 3rem 3rem 4rem;
+}
+
+.portfolio-section-title {
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0 0 1.5rem 0;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  text-align: left;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .portfolio-hero {
+    padding: 3rem 1.5rem 1.5rem;
+  }
+
+  .portfolio-section {
+    padding: 2rem 1.5rem 3rem;
+  }
+
+  .portfolio-grid {
+    grid-template-columns: 1fr;
+  }
+}

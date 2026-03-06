@@ -68,107 +68,6 @@
   margin: 0 auto;
 }
 
-.contact-cube-wrap {
-  margin-top: 28rem;
-  margin-bottom: 28rem;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-}
-
-/* Single global phase: 0→1→0 so every cube stays in sync and cycle never restarts */
-@property --cube-phase {
-  syntax: "<number>";
-  inherits: true;
-  initial-value: 0;
-}
-
-@keyframes cube-phase {
-  0%, 100% { --cube-phase: 0; }
-  50% { --cube-phase: 1; }
-}
-
-.contact-cube-container {
-  position: relative;
-  top: -80px;
-  transform: skewY(-20deg);
-  animation: cube-phase 2.5s ease-in-out infinite;
-}
-
-.contact-cube-container .contact-cube {
-  position: relative;
-  z-index: 2;
-}
-
-.contact-cube-container .contact-cube:nth-child(2) {
-  z-index: 1;
-  translate: -60px -60px;
-}
-
-.contact-cube-container .contact-cube:nth-child(3) {
-  z-index: 3;
-  translate: 60px 60px;
-}
-
-.contact-cube-container .contact-cube div {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  gap: 30px;
-  translate: calc(-70px * var(--x)) calc(-60px * var(--y));
-}
-
-/* Base: transition = linger when hover ends. Hover: no animation on cube, only color from phase = transition has real "from" value */
-.contact-cube-container .contact-cube div span {
-  position: relative;
-  display: inline-block;
-  width: 50px;
-  height: 50px;
-  background: #dcdcdc;
-  z-index: calc(1 * var(--i));
-  transition: background 1.5s ease, filter 1.5s ease;
-}
-
-.contact-cube-container .contact-cube div span:hover {
-  transition: none;
-  background: color-mix(in srgb, #ef4149 calc((1 - var(--cube-phase)) * 100%), rgb(107, 168, 255));
-  filter: drop-shadow(0 0 30px color-mix(in srgb, #ef4149 calc((1 - var(--cube-phase)) * 100%), rgb(107, 168, 255)));
-}
-
-.contact-cube-container .contact-cube div span:hover::before,
-.contact-cube-container .contact-cube div span:hover::after {
-  transition: none;
-  background: color-mix(in srgb, #ef4149 calc((1 - var(--cube-phase)) * 100%), rgb(107, 168, 255));
-}
-
-.contact-cube-container .contact-cube div span::before {
-  content: "";
-  position: absolute;
-  left: -40px;
-  width: 40px;
-  height: 100%;
-  background: #fff;
-  transform-origin: right;
-  transform: skewY(45deg);
-  transition: background 1.5s ease;
-}
-
-.contact-cube-container .contact-cube div span::after {
-  content: "";
-  position: absolute;
-  top: -40px;
-  left: 0px;
-  width: 100%;
-  height: 40px;
-  background: #f2f2f2;
-  transform-origin: bottom;
-  transform: skewX(45deg);
-  transition: background 1.5s ease;
-}
-
 .contact-content {
   width: 100%;
 }
@@ -336,6 +235,21 @@
   min-height: 160px;
 }
 
+/* Status message */
+.contact-status {
+  font-size: 0.9375rem;
+  margin: 0 0 0.75rem 0;
+  padding: 0.5rem 0;
+}
+
+.contact-status-success {
+  color: rgb(107, 168, 255);
+}
+
+.contact-status-error {
+  color: #ff5757;
+}
+
 /* Submit button: border fades grey → gradient over 1.5s; glow spans further, same colors */
 .contact-submit-wrap {
   margin-top: 0.5rem;
@@ -399,6 +313,11 @@
   outline: none;
 }
 
+.contact-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .contact-submit:focus .contact-submit-text {
   color: rgb(107, 168, 255);
 }
@@ -407,6 +326,26 @@
   position: relative;
   z-index: 2;
   transition: color 1.5s ease;
+}
+
+/* Direct email section (below form) */
+.contact-direct-intro {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 2rem 0 0.5rem 0;
+  line-height: 1.5;
+}
+
+.contact-direct-email {
+  font-size: 1rem;
+  color: rgb(107, 168, 255);
+  text-decoration: none;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.contact-direct-email:hover {
+  color: #ff5757;
+  text-decoration: underline;
 }
 
 @media (max-width: 768px) {
