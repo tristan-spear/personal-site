@@ -5,25 +5,45 @@
   align-items: stretch;
   text-align: left;
   background: rgba(255, 255, 255, 0.02);
-  border: 2px solid rgba(255, 255, 255, 0.12);
-  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
   padding: 0;
   cursor: pointer;
   overflow: hidden;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card.gradient-border-wrapper .gradient-border {
+  display: none;
 }
 
 .project-card:hover {
-  border-color: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.03);
   box-shadow: 0 0 30px rgba(107, 168, 255, 0.15);
 }
 
 .project-card-preview {
+  position: relative;
   width: 100%;
   aspect-ratio: 16 / 10;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(0, 0, 0, 0.4);
   overflow: hidden;
-  border-radius: 10px 10px 0 0;
+  border-radius: 18px 18px 0 0;
+}
+
+.project-card-preview::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 60%);
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.project-card:hover .project-card-preview::after {
+  opacity: 0.4;
 }
 
 .project-media-image {
@@ -31,6 +51,11 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-media-image {
+  transform: scale(1.05);
 }
 
 .project-media-iframe {
@@ -41,35 +66,31 @@
 }
 
 .project-card-body {
-  padding: 1.25rem 1.5rem;
+  padding: 1.5rem;
   flex: 1;
 }
 
 .project-card-title {
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.95);
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: #ffffff;
   margin: 0 0 1rem 0;
-  font-family: Georgia, 'Times New Roman', serif;
-  line-height: 1.25;
+  font-family: 'Outfit', -apple-system, sans-serif;
+  letter-spacing: -0.02em;
 }
 
 .project-card-meta {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  margin: 0 0 1rem 0;
-  padding-top: 0.9rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 0.9rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 1rem;
+  margin: 0 0 0.75rem 0;
 }
 
 .project-card-description {
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 0.75rem 0;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
 }
 
 .project-card-tech-list {
@@ -80,12 +101,13 @@
 }
 
 .project-card-tech-tag {
-  font-size: 0.875rem;
-  color: rgba(255, 255, 255, 0.78);
-  background: rgba(255, 255, 255, 0.07);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 0.35rem 0.7rem;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 999px;
+  letter-spacing: 0.06em;
 }
 
 .project-card-links {
@@ -96,22 +118,45 @@
 }
 
 .project-card-link {
-  font-size: 0.9375rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  color: rgba(107, 168, 255, 0.95);
-  background: rgba(107, 168, 255, 0.12);
-  border: 1px solid rgba(107, 168, 255, 0.3);
-  padding: 0.4rem 0.75rem;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
   border-radius: 999px;
   text-decoration: none;
-  transition: color 0.2s, background 0.2s, border-color 0.2s;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project-card-link:hover {
-  color: rgba(107, 168, 255, 1);
-  background: rgba(107, 168, 255, 0.18);
-  border-color: rgba(107, 168, 255, 0.45);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
   text-decoration: none;
+}
+
+.project-card-link-icon {
+  font-size: 1em;
+  line-height: 1;
+}
+
+.project-card-link--primary {
+  color: #ffffff;
+  background: linear-gradient(to right, #ff5757, #ff6b6b);
+  border: none;
+}
+
+.project-card-link--primary:hover {
+  box-shadow: 0 0 20px rgba(255, 87, 87, 0.4);
+}
+
+.project-card-link--secondary {
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 /* Modal */
@@ -138,11 +183,12 @@
   width: 100%;
   max-height: 92vh;
   overflow-y: auto;
-  background: #0a0a0a;
-  border: 2px solid rgba(255, 255, 255, 0.15);
+  background: rgba(10, 10, 10, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 16px;
   padding: 2.5rem 3rem;
   animation: project-modal-scaleIn 0.25s ease-out;
+  box-shadow: 0 0 70px rgba(0, 0, 0, 0.75);
 }
 
 @keyframes project-modal-scaleIn {
@@ -224,6 +270,10 @@
   max-width: 80ch;
 }
 
+.project-modal-description-block .project-modal-meta-label {
+  margin-top: 1.25rem;
+}
+
 .project-modal-bullet {
   margin: 0.5rem 0;
 }
@@ -273,22 +323,45 @@
 }
 
 .project-modal-link {
-  font-size: 1.0625rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.875rem;
   font-weight: 500;
-  color: rgba(107, 168, 255, 0.95);
-  background: rgba(107, 168, 255, 0.12);
-  border: 1px solid rgba(107, 168, 255, 0.3);
-  padding: 0.6rem 1.2rem;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.5rem 1rem;
   border-radius: 8px;
   text-decoration: none;
-  transition: color 0.2s, background 0.2s, border-color 0.2s;
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .project-modal-link:hover {
-  color: rgba(107, 168, 255, 1);
-  background: rgba(107, 168, 255, 0.18);
-  border-color: rgba(107, 168, 255, 0.45);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
   text-decoration: none;
+}
+
+.project-modal-link-icon {
+  font-size: 1.15em;
+  line-height: 1;
+}
+
+.project-modal-link--primary {
+  color: #ffffff;
+  background: linear-gradient(to right, #ff5757, #ff6b6b);
+  border: none;
+}
+
+.project-modal-link--primary:hover {
+  box-shadow: 0 0 20px rgba(255, 87, 87, 0.4);
+}
+
+.project-modal-link--secondary {
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
 }
 
 @media (max-width: 640px) {

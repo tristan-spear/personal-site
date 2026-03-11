@@ -16,12 +16,38 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+  /* Uniform 15% shrink of the whole rendered site */
+  --site-scale: 0.8075;
+}
+
+html {
+  font-size: 100%;
+}
+
 #root {
   margin: 0;
   padding: 0;
   width: 100%;
   min-height: 100vh;
   background: #000000;
+}
+
+/* Preferred: true "everything smaller" without layout oddities */
+@supports (zoom: 1) {
+  html {
+    zoom: var(--site-scale);
+  }
+}
+
+/* Fallback (mainly Firefox): visually shrink; compensate canvas size */
+@supports not (zoom: 1) {
+  #root {
+    transform: scale(var(--site-scale));
+    transform-origin: top left;
+    width: calc(100% / var(--site-scale));
+    min-height: calc(100vh / var(--site-scale));
+  }
 }
 
 .hover-underline {

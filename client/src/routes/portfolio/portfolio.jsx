@@ -25,8 +25,8 @@ const WEB_PROJECTS = [
       previewImage: qrCodeImage,
     },
     links: [
-      { label: 'Live site', href: 'https://qr-code-generator-woad-rho.vercel.app' },
-      { label: 'GitHub', href: 'https://github.com/tristan-spear/qr-code-generator-website' },
+      { label: 'Live site', href: 'https://qr-code-generator-woad-rho.vercel.app', variant: 'primary' },
+      { label: 'GitHub', href: 'https://github.com/tristan-spear/qr-code-generator-website', variant: 'secondary' },
     ],
   },
   {
@@ -45,8 +45,8 @@ const WEB_PROJECTS = [
       previewImage: mitOpenCoursewareImage,
     },
     links: [
-      { label: 'Live site', href: 'https://mit-opencourseware-site.vercel.app/' },
-      { label: 'GitHub', href: 'https://github.com/tristan-spear/mit-open-courseware-website' },
+      { label: 'Live site', href: 'https://mit-opencourseware-site.vercel.app/', variant: 'primary' },
+      { label: 'GitHub', href: 'https://github.com/tristan-spear/mit-open-courseware-website', variant: 'secondary' },
     ],
   },
 ];
@@ -71,7 +71,7 @@ const EMBEDDED_PROJECTS = [
       src: memoryAllocatorImage,
     },
     links: [
-      { label: 'GitHub', href: 'https://github.com/tristan-spear/memory-allocator-deallocator' },
+      { label: 'GitHub', href: 'https://github.com/tristan-spear/memory-allocator-deallocator', variant: 'secondary' },
     ],
   },
   {
@@ -91,7 +91,7 @@ const EMBEDDED_PROJECTS = [
       src: imageCompressorImage,
     },
     links: [
-      { label: 'GitHub', href: 'https://github.com/tristan-spear/image-compressor-decompressor' },
+      { label: 'GitHub', href: 'https://github.com/tristan-spear/image-compressor-decompressor', variant: 'secondary' },
     ],
   },
 ];
@@ -100,10 +100,12 @@ function Portfolio() {
   return (
     <div className="portfolio">
       <header className="portfolio-hero">
-        <h1 className="portfolio-hero-title hover-underline">Projects</h1>
-        <p className="portfolio-hero-intro">
-          Web applications and embedded systems I’ve built or contributed to.
-        </p>
+        <div className="portfolio-hero-card">
+          <h1 className="portfolio-hero-title">Projects</h1>
+          <p className="portfolio-hero-intro">
+            Web applications and embedded systems I’ve built or contributed to.
+          </p>
+        </div>
       </header>
 
       <section className="portfolio-section">

@@ -34,6 +34,18 @@ function Experience() {
       ],
     },
     {
+      title: "Programming & Robotics Instructor",
+      company: "iD Tech Camps - Stanford University",
+      location: "Stanford, CA",
+      date: "May 2024 - Aug. 2024",
+      thumbnail: stanfordLogo,
+      bullets: [
+        "Led and instructed week-long engineering courses in VEX robotics and programming, teaching Python and C++ to middle and high school students",
+        "Independently managed classrooms of 10-14 students, adapting instruction to different skill levels while maintaining structured timelines",
+        "Developed lesson plans and technical exercises to reinforce core programming concepts and problem-solving skills",
+      ],
+    },
+    {
       title: "AI Researcher",
       company: "Cal Poly, San Luis Obispo",
       location: "San Luis Obispo, CA",
@@ -55,18 +67,6 @@ function Experience() {
         "Provided one-on-one and small group tutoring for core CS classes, including Intro to Programming, Data Structures, Object-Oriented Programming, Computer Organization, and Discrete Math, supporting students across multiple semesters",
         "Assisted students with Java, Python, C/C++, and Assembly Language, helping debug code and clarify how code executes across different abstraction levels",
         "Served as lead tutor for the MESA program, completing 400+ tutoring hours, and supporting 30+ students, through sustained, semester-long academic improvement",
-      ],
-    },
-    {
-      title: "Programming & Robotics Instructor",
-      company: "iD Tech Camps - Stanford University",
-      location: "Stanford, CA",
-      date: "May 2024 - Aug. 2024",
-      thumbnail: stanfordLogo,
-      bullets: [
-        "Led and instructed week-long engineering courses in VEX robotics and programming, teaching Python and C++ to middle and high school students",
-        "Independently managed classrooms of 10-14 students, adapting instruction to different skill levels while maintaining structured timelines",
-        "Developed lesson plans and technical exercises to reinforce core programming concepts and problem-solving skills",
       ],
     },
   ];

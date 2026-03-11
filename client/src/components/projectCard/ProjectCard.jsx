@@ -22,6 +22,13 @@ function ProjectCard({ project }) {
       <img src={media.src} alt={title} className="project-media-image" />
     );
 
+  const linkIconClass = (label, variant) => {
+    const normalized = (label || '').toLowerCase();
+    if (normalized.includes('github')) return 'bi-github';
+    if (normalized.includes('live') || variant === 'primary') return 'bi-box-arrow-up-right';
+    return 'bi-link-45deg';
+  };
+
   return (
     <>
       <button
@@ -56,15 +63,16 @@ function ProjectCard({ project }) {
             </div>
             {hasLinks && (
               <div className="project-card-links">
-                {links.map(({ label, href }) => (
+                {links.map(({ label, href, variant }) => (
                   <a
                     key={href}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="project-card-link"
+                    className={`project-card-link project-card-link--${variant ?? 'secondary'}`}
                     onClick={(e) => e.stopPropagation()}
                   >
+                    <i className={`project-card-link-icon bi ${linkIconClass(label, variant)}`} aria-hidden="true" />
                     {label}
                   </a>
                 ))}
@@ -121,14 +129,15 @@ function ProjectCard({ project }) {
                 <div>
                   <p className="project-modal-meta-label">Links</p>
                   <div className="project-modal-links">
-                    {links.map(({ label, href }) => (
+                    {links.map(({ label, href, variant }) => (
                       <a
                         key={href}
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="project-modal-link"
+                        className={`project-modal-link project-modal-link--${variant ?? 'secondary'}`}
                       >
+                        <i className={`project-modal-link-icon bi ${linkIconClass(label, variant)}`} aria-hidden="true" />
                         {label}
                       </a>
                     ))}
@@ -137,13 +146,16 @@ function ProjectCard({ project }) {
               )}
             </div>
             {isBulletedDescription ? (
-              <ul className="project-modal-bullets">
-                {description.map((item) => (
-                  <li key={item} className="project-modal-bullet">
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <div className="project-modal-description-block">
+                <p className="project-modal-meta-label">Implementation details</p>
+                <ul className="project-modal-bullets">
+                  {description.map((item) => (
+                    <li key={item} className="project-modal-bullet">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ) : (
               <p className="project-modal-description">{description}</p>
             )}

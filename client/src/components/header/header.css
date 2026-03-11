@@ -3,9 +3,9 @@
   top: 0;
   left: 0;
   right: 0;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
   z-index: 1000;
   background: #000000;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -28,9 +28,9 @@
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  width: 62px;
-  height: 62px;
-  perspective: 1000px;
+  width: 3.875rem;
+  height: 3.875rem;
+  perspective: 62.5rem;
   overflow: visible;
 }
 
@@ -44,8 +44,8 @@
 }
 
 .logo-cube {
-  width: 60px;
-  height: 60px;
+  width: 3.75rem;
+  height: 3.75rem;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.3s ease;
@@ -87,27 +87,27 @@
 }
 
 .logo-cube-face.front {
-  transform: translateZ(30px);
+  transform: translateZ(1.875rem);
 }
 
 .logo-cube-face.back {
-  transform: translateZ(-30px) rotateY(180deg);
+  transform: translateZ(-1.875rem) rotateY(180deg);
 }
 
 .logo-cube-face.right {
-  transform: translateX(30px) rotateY(90deg);
+  transform: translateX(1.875rem) rotateY(90deg);
 }
 
 .logo-cube-face.left {
-  transform: translateX(-30px) rotateY(-90deg);
+  transform: translateX(-1.875rem) rotateY(-90deg);
 }
 
 .logo-cube-face.top {
-  transform: translateY(-30px) rotateX(90deg);
+  transform: translateY(-1.875rem) rotateX(90deg);
 }
 
 .logo-cube-face.bottom {
-  transform: translateY(30px) rotateX(-90deg);
+  transform: translateY(1.875rem) rotateX(-90deg);
 }
 
 @keyframes logo-cube-rotate {
@@ -210,13 +210,13 @@
   }
 
   .header-logo.logo-cube-link {
-    width: 54px;
-    height: 54px;
+    width: 3.375rem;
+    height: 3.375rem;
   }
 
   .logo-cube {
-    width: 52px;
-    height: 52px;
+    width: 3.25rem;
+    height: 3.25rem;
   }
 
   .logo-cube-face {
@@ -224,27 +224,27 @@
   }
 
   .logo-cube-face.front {
-    transform: translateZ(26px);
+    transform: translateZ(1.625rem);
   }
 
   .logo-cube-face.back {
-    transform: translateZ(-26px) rotateY(180deg);
+    transform: translateZ(-1.625rem) rotateY(180deg);
   }
 
   .logo-cube-face.right {
-    transform: translateX(26px) rotateY(90deg);
+    transform: translateX(1.625rem) rotateY(90deg);
   }
 
   .logo-cube-face.left {
-    transform: translateX(-26px) rotateY(-90deg);
+    transform: translateX(-1.625rem) rotateY(-90deg);
   }
 
   .logo-cube-face.top {
-    transform: translateY(-26px) rotateX(90deg);
+    transform: translateY(-1.625rem) rotateX(90deg);
   }
 
   .logo-cube-face.bottom {
-    transform: translateY(26px) rotateX(-90deg);
+    transform: translateY(1.625rem) rotateX(-90deg);
   }
 }
 
@@ -254,13 +254,13 @@
   }
 
   .header-logo.logo-cube-link {
-    width: 50px;
-    height: 50px;
+    width: 3.125rem;
+    height: 3.125rem;
   }
 
   .logo-cube {
-    width: 48px;
-    height: 48px;
+    width: 3rem;
+    height: 3rem;
   }
 
   .logo-cube-face {
@@ -268,27 +268,27 @@
   }
 
   .logo-cube-face.front {
-    transform: translateZ(24px);
+    transform: translateZ(1.5rem);
   }
 
   .logo-cube-face.back {
-    transform: translateZ(-24px) rotateY(180deg);
+    transform: translateZ(-1.5rem) rotateY(180deg);
   }
 
   .logo-cube-face.right {
-    transform: translateX(24px) rotateY(90deg);
+    transform: translateX(1.5rem) rotateY(90deg);
   }
 
   .logo-cube-face.left {
-    transform: translateX(-24px) rotateY(-90deg);
+    transform: translateX(-1.5rem) rotateY(-90deg);
   }
 
   .logo-cube-face.top {
-    transform: translateY(-24px) rotateX(90deg);
+    transform: translateY(-1.5rem) rotateX(90deg);
   }
 
   .logo-cube-face.bottom {
-    transform: translateY(24px) rotateX(-90deg);
+    transform: translateY(1.5rem) rotateX(-90deg);
   }
 
   .header-nav {
