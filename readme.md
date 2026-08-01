@@ -4,7 +4,7 @@ Tristan Spear's personal site, built with Next.js (App Router) and deployed on V
 
 ## Stack
 
-- Next.js 15 (App Router, JavaScript)
+- Next.js 16 (App Router, Turbopack, JavaScript)
 - React 19
 - Bootstrap Icons (`bi bi-*`) + hand-written CSS
 - Nodemailer for the contact form
@@ -13,9 +13,11 @@ Tristan Spear's personal site, built with Next.js (App Router) and deployed on V
 
 ```bash
 npm install
-cp .env.example .env.local   # then fill in your values
 npm run dev
 ```
+
+For the contact form to send mail, create a `.env.local` with the variables
+listed under [Environment variables](#environment-variables).
 
 The site runs at http://localhost:3000.
 
@@ -27,7 +29,6 @@ The site runs at http://localhost:3000.
 | `npm run build` | Production build |
 | `npm start` | Serve the production build |
 | `npm run lint` | Run ESLint |
-| `npm run favicon` | Regenerate favicons from `public/assets/favicon.png` |
 
 ## Project structure
 
@@ -37,13 +38,11 @@ app/
   page.jsx             /
   projects/page.jsx    /projects
   resume/page.jsx      /resume
-  blog/page.jsx        /blog
   contact/page.jsx     /contact
   api/contact/route.js POST /api/contact (Nodemailer)
   globals.css
 components/            Shared UI, each with colocated CSS
 public/assets/         Images and resume PDF
-scripts/               Favicon generation
 ```
 
 Pages are server components by default. `"use client"` is only used where there

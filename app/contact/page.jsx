@@ -43,107 +43,88 @@ function Contact() {
 
   return (
     <div className="contact">
-      <section className="contact-hero">
-        <h1 className="contact-hero-title hover-underline">Let's Get in Touch!</h1>
-        <p className="contact-hero-intro">
-          Have a question or want to work together? Feel free to reach out!
-        </p>
-      </section>
-      <section className="contact-section">
-        <div className="contact-content">
-          <div className="contact-form-wrapper">
-            <form className="contact-form" onSubmit={handleSubmit}>
-              <div className="contact-row">
-                <div className="contact-field">
-                  <label htmlFor="contact-email">Your email</label>
-                  <div className="contact-input-wrap">
-                    <input
-                      id="contact-email"
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="you@example.com"
-                      required
-                    />
-                  </div>
-                </div>
-                <div className="contact-field">
-                  <label htmlFor="contact-name">Your name</label>
-                  <div className="contact-input-wrap">
-                    <input
-                      id="contact-name"
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      placeholder="Your name"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="contact-field">
-                <label htmlFor="contact-subject">Subject</label>
-                <div className="contact-input-wrap">
-                  <input
-                    id="contact-subject"
-                    type="text"
-                    value={subject}
-                    onChange={(e) => setSubject(e.target.value)}
-                    placeholder="What's this about?"
-                    required
-                  />
-                </div>
-              </div>
-              <div className="contact-field">
-                <label htmlFor="contact-message">Message</label>
-                <div className="contact-input-wrap">
-                  <textarea
-                    id="contact-message"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    placeholder="Your message..."
-                    rows={6}
-                    required
-                  />
-                </div>
-              </div>
-              {status && (
-                <p
-                  className={
-                    status.type === 'success'
-                      ? 'contact-status contact-status-success'
-                      : 'contact-status contact-status-error'
-                  }
-                  role="alert"
-                >
-                  {status.text}
-                </p>
-              )}
-              <div className="contact-submit-wrap">
-                <button
-                  type="submit"
-                  className="contact-submit"
-                  disabled={isSubmitting}
-                >
-                  <span className="contact-submit-text">
-                    {isSubmitting ? 'Sending...' : 'Send message'}
-                  </span>
-                </button>
-              </div>
-            </form>
+      <main className="contact-main">
+        <h1 className="contact-title">Contact Me</h1>
+
+        <form className="contact-form" onSubmit={handleSubmit}>
+          <div className="contact-row">
+            <div className="contact-field">
+              <label htmlFor="contact-name">Name</label>
+              <input
+                id="contact-name"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your name"
+                autoComplete="name"
+                required
+              />
+            </div>
+            <div className="contact-field">
+              <label htmlFor="contact-email">Email</label>
+              <input
+                id="contact-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                autoComplete="email"
+                required
+              />
+            </div>
           </div>
-          <section className="contact-direct">
-            <h2 className="contact-direct-title">Or contact me directly at :</h2>
-            {/* <p className="contact-direct-intro">Reach out at my email below.</p> */}
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              className="contact-direct-email"
+
+          <div className="contact-field">
+            <label htmlFor="contact-subject">Subject</label>
+            <input
+              id="contact-subject"
+              type="text"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+              placeholder="What's this about?"
+              required
+            />
+          </div>
+
+          <div className="contact-field">
+            <label htmlFor="contact-message">Message</label>
+            <textarea
+              id="contact-message"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="Your message..."
+              rows={6}
+              required
+            />
+          </div>
+
+          {status && (
+            <p
+              className={
+                status.type === 'success'
+                  ? 'contact-status contact-status-success'
+                  : 'contact-status contact-status-error'
+              }
+              role="alert"
             >
-              {CONTACT_EMAIL || 'your@email.com'}
+              {status.text}
+            </p>
+          )}
+
+          <button type="submit" className="contact-submit" disabled={isSubmitting}>
+            {isSubmitting ? 'Sending...' : 'Send message'}
+          </button>
+        </form>
+
+        {CONTACT_EMAIL && (
+          <p className="contact-direct">
+            Or email me at{' '}
+            <a href={`mailto:${CONTACT_EMAIL}`} className="contact-direct-email">
+              {CONTACT_EMAIL}
             </a>
-          </section>
-        </div>
-      </section>
+          </p>
+        )}
+      </main>
     </div>
   );
 }

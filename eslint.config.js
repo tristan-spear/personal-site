@@ -1,9 +1,7 @@
 import js from '@eslint/js'
 import globals from 'globals'
-import { FlatCompat } from '@eslint/eslintrc'
+import next from 'eslint-config-next/core-web-vitals'
 import { defineConfig, globalIgnores } from 'eslint/config'
-
-const compat = new FlatCompat({ baseDirectory: import.meta.dirname })
 
 export default defineConfig([
   globalIgnores(['.next', 'node_modules']),
@@ -19,7 +17,7 @@ export default defineConfig([
       },
     },
   },
-  ...compat.extends('next/core-web-vitals'),
+  ...next,
   {
     files: ['**/*.{js,jsx,mjs}'],
     rules: {

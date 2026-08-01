@@ -10,7 +10,6 @@ function Header() {
   const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/projects', label: 'Projects' },
-    // { path: '/blog', label: 'Blog' },
     { path: '/resume', label: 'Resume' },
     { path: '/contact', label: 'Contact' },
   ];
