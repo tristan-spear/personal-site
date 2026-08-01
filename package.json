@@ -13,20 +13,24 @@
   "dependencies": {
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
-    "next": "^15.5.4",
+    "next": "16.2.12",
     "nodemailer": "^6.9.16",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.39.1",
-    "@types/react": "^19.2.5",
-    "@types/react-dom": "^19.2.3",
-    "eslint": "^9.39.1",
-    "eslint-config-next": "^15.5.4",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4",
+    "eslint": "10.8.0",
+    "eslint-config-next": "16.2.12",
     "eslint-plugin-react-hooks": "^7.0.1",
     "globals": "^16.5.0",
     "sharp": "^0.34.5"
+  },
+  "overrides": {
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.4"
   }
 }
