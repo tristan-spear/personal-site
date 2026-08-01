@@ -1,0 +1,14 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  // Pin tracing to this project; a lockfile in a parent directory otherwise
+  // makes Next infer the wrong workspace root.
+  outputFileTracingRoot: __dirname,
+};
+
+export default nextConfig;
