@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Timeline from '@/components/timeline/timeline';
+import PixelSnow from '@/components/pixelSnow/PixelSnow';
 import './home.css';
 
 const headshot = '/assets/headshot.jpeg';
@@ -37,7 +38,21 @@ function Home() {
   return (
     <div className="home">
       <section className="hero-section">
-        <div className="space-animation"></div>
+        <div className="hero-background">
+          <PixelSnow
+            color="#ffffff"
+            flakeSize={0.007}
+            minFlakeSize={2}
+            pixelResolution={350}
+            speed={0.3}
+            density={1}
+            direction={360}
+            brightness={1.6}
+            depthFade={5}
+            farPlane={15}
+            variant="round"
+          />
+        </div>
         <div className="hero-content">
           <div className="hero-text">
             <h1 className="hero-name">
