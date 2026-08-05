@@ -1,5 +1,6 @@
 import React from 'react';
 import ProjectCard from '@/components/projectCard/ProjectCard';
+import CursorDrivenParticleTypography from '@/components/particleTypography/CursorDrivenParticleTypography';
 import './portfolio.css';
 
 const memoryAllocatorImage = '/assets/memory_allocator.png';
@@ -101,12 +102,18 @@ function Portfolio() {
   return (
     <div className="portfolio">
       <header className="portfolio-hero">
-        <div className="portfolio-hero-card">
-          <h1 className="portfolio-hero-title">Projects</h1>
-          <p className="portfolio-hero-intro">
-            Web applications and embedded systems I’ve built or contributed to.
-          </p>
-        </div>
+        <h1 className="portfolio-hero-title">
+          <span className="portfolio-hero-title-label">Projects</span>
+          <CursorDrivenParticleTypography
+            text="Projects"
+            fontSize={140}
+            fontFamily="'Outfit', -apple-system, sans-serif"
+            fontWeight="300"
+            particleDensity={4}
+            particleSize={1.4}
+            dispersionStrength={20}
+          />
+        </h1>
       </header>
 
       <section className="portfolio-section">
