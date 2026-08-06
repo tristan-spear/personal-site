@@ -17,6 +17,10 @@
   height: clamp(150px, 22vw, 240px);
 }
 
+.portfolio-hero-calendar {
+  padding: 0 3rem;
+}
+
 .portfolio-hero-title-label {
   position: absolute;
   width: 1px;
@@ -52,6 +56,10 @@
 @media (max-width: 768px) {
   .portfolio-hero {
     padding: 1.75rem 0 0;
+  }
+
+  .portfolio-hero-calendar {
+    padding: 0 1.5rem;
   }
 
   .portfolio-section {

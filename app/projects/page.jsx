@@ -1,6 +1,7 @@
 import React from 'react';
 import ProjectCard from '@/components/projectCard/ProjectCard';
 import CursorDrivenParticleTypography from '@/components/particleTypography/CursorDrivenParticleTypography';
+import GithubCalendar from '@/components/githubCalendar/GithubCalendar';
 import './portfolio.css';
 
 const memoryAllocatorImage = '/assets/memory_allocator.png';
@@ -114,6 +115,10 @@ function Portfolio() {
             dispersionStrength={20}
           />
         </h1>
+
+        <div className="portfolio-hero-calendar">
+          <GithubCalendar username="tristan-spear" />
+        </div>
       </header>
 
       <section className="portfolio-section">
