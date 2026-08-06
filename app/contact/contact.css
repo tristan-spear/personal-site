@@ -167,9 +167,20 @@
   border-bottom-color: rgb(107, 168, 255);
 }
 
+.contact-ascii {
+  margin-top: 4.5rem;
+  height: clamp(300px, 40vw, 480px);
+  touch-action: pan-y;
+}
+
 @media (max-width: 640px) {
   .contact-main {
     padding: 4rem 1.5rem 5rem;
+  }
+
+  .contact-ascii {
+    margin-top: 3rem;
+    height: 260px;
   }
 
   .contact-title {

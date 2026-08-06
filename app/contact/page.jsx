@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import AsciiEffect from '@/components/asciiEffect/AsciiEffect';
 import './contact.css';
 
 const API_CONTACT = '/api/contact';
@@ -124,6 +125,24 @@ function Contact() {
             </a>
           </p>
         )}
+
+        <div className="contact-ascii">
+          <AsciiEffect
+            variant="flow"
+            imageSrc="/assets/beats.png"
+            alt="ASCII art rendering of a pair of headphones that ripples with the cursor"
+            flowSpeed={0.22}
+            flowStrength={12}
+            mouseRadius={150}
+            mouseStrength={22}
+            fit="contain"
+            scale={0.95}
+            brightnessBoost={1.05}
+            contrast={1.25}
+            backgroundColor="#000000"
+            colors={['#6ba8ff', '#cfe0f5', '#ffffff']}
+          />
+        </div>
       </main>
     </div>
   );
