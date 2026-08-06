@@ -129,7 +129,7 @@ function Contact() {
         <div className="contact-ascii">
           <AsciiEffect
             variant="flow"
-            imageSrc="/assets/beats.png"
+            imageSrc="/newfavicon.png"
             alt="ASCII art rendering of a pair of headphones that ripples with the cursor"
             flowSpeed={0.22}
             flowStrength={12}
