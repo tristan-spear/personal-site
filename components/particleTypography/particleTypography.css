@@ -1,0 +1,15 @@
+.particle-typography {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.particle-typography canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
