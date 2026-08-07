@@ -8,6 +8,7 @@ const cuestaLogo = '/assets/cuesta.jpeg';
 const stanfordLogo = '/assets/stanford.png';
 const udemyLogo = '/assets/udemy.png';
 const hack4impactLogo = '/assets/hack4impact.png';
+const seslocLogo = '/assets/sesloc.png';
 
 function Timeline() {
   const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -21,6 +22,14 @@ function Timeline() {
     //   color: "#00D9FF", // Bright cyan
     //   icon: "🎓",
     // },
+    {
+      title: "Joined SESLOC Credit Union as Systems Development Engineer Intern",
+      description: "Building systems and internal tools that power credit union operations",
+      date: "June 2026",
+      thumbnail: seslocLogo,
+      color: "#4A9EFF", // SESLOC blue
+      icon: "🏦",
+    },
     {
       title: "Hired as a Web Developer at Cal Poly AIP",
       description: "Delivering web projects across departments, including administrative tooling and official university webpages",
