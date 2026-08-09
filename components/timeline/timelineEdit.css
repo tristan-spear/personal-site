@@ -1,0 +1,222 @@
+/* Timeline edit affordances. Only rendered for a signed-in editor, so none of
+   this affects the public page. */
+
+.timeline-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.timeline-add {
+  padding: 0.6rem 1.5rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background-color: transparent;
+  background-image: linear-gradient(to right, #ff5757, rgb(107, 168, 255));
+  background-size: 0% 100%;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+}
+
+.timeline-add:hover:not(:disabled),
+.timeline-add:focus-visible:not(:disabled) {
+  outline: none;
+  background-size: 100% 100%;
+  border-color: rgba(255, 255, 255, 0.85);
+}
+
+.timeline-add:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.timeline-toolbar-error {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  color: #ff5757;
+}
+
+.timeline-edit {
+  margin-top: 1rem;
+  padding: 0.3rem 0.85rem;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.timeline-item:hover .timeline-edit,
+.timeline-edit:focus-visible {
+  opacity: 1;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.7);
+  outline: none;
+}
+
+/* The add form sits above the timeline; edit forms sit inside an item's
+   content column. */
+.timeline-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.timeline-content .timeline-form {
+  margin-bottom: 0;
+}
+
+.timeline-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.timeline-form-label {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.timeline-form-input {
+  width: 100%;
+  padding: 0.6rem 0.7rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.timeline-form-input:focus {
+  outline: none;
+  border-color: rgb(107, 168, 255);
+}
+
+.timeline-form-input:disabled {
+  opacity: 0.6;
+}
+
+.timeline-form-color {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.timeline-form-color input[type='color'] {
+  width: 42px;
+  height: 38px;
+  padding: 2px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.timeline-form-hint {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.timeline-form-error {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  color: #ff5757;
+}
+
+.timeline-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.timeline-form-confirm {
+  display: inline-flex;
+  gap: 0.75rem;
+}
+
+.timeline-button {
+  padding: 0.5rem 1.35rem;
+  font-family: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background-color: transparent;
+  background-image: linear-gradient(to right, #ff5757, rgb(107, 168, 255));
+  background-size: 0% 100%;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+}
+
+.timeline-button:hover:not(:disabled),
+.timeline-button:focus-visible:not(:disabled) {
+  outline: none;
+  background-size: 100% 100%;
+  border-color: rgba(255, 255, 255, 0.75);
+}
+
+.timeline-button-primary {
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.timeline-button-danger {
+  background-image: none;
+  color: #ff8a8a;
+  border-color: rgba(255, 87, 87, 0.5);
+  margin-left: auto;
+}
+
+.timeline-button-danger:hover:not(:disabled),
+.timeline-button-danger:focus-visible:not(:disabled) {
+  color: #ffffff;
+  background-color: rgba(255, 87, 87, 0.85);
+  border-color: rgba(255, 87, 87, 0.9);
+}
+
+.timeline-form-confirm .timeline-button-danger {
+  margin-left: 0;
+}
+
+.timeline-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}

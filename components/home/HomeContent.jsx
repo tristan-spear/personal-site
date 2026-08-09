@@ -10,7 +10,7 @@ const headshot = '/assets/headshot.jpeg';
 const cuestaLogo = '/assets/cuesta.jpeg';
 const learnByDoing = '/assets/cp.png';
 
-function HomeContent({ content: initialContent, canEdit }) {
+function HomeContent({ content: initialContent, timeline, canEdit }) {
   const [content, setContent] = useState(initialContent);
   const [displayedName, setDisplayedName] = useState('');
   const [typingComplete, setTypingComplete] = useState(false);
@@ -164,7 +164,7 @@ function HomeContent({ content: initialContent, canEdit }) {
       <section className="journey-section">
         <div className="journey-content">
           <h2 className="journey-title hover-underline">Professional Journey</h2>
-          <Timeline />
+          <Timeline events={timeline} canEdit={canEdit} />
         </div>
       </section>
     </div>

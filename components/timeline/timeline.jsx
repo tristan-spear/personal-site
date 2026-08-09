@@ -1,148 +1,146 @@
 'use client';
 
 import React, { useState } from 'react';
+import { emptyItem, getCollectionConfig } from '@/lib/collections';
+import TimelineItemForm from './TimelineItemForm';
 import './timeline.css';
 
-const learnByDoing = '/assets/cp.png';
-const cuestaLogo = '/assets/cuesta.jpeg';
-const stanfordLogo = '/assets/stanford.png';
-const udemyLogo = '/assets/udemy.png';
-const hack4impactLogo = '/assets/hack4impact.png';
-const seslocLogo = '/assets/sesloc.png';
+const calPolyThumbnail = '/assets/cp.png';
+const config = getCollectionConfig('timeline');
+const ENDPOINT = '/api/collection/timeline';
 
-function Timeline() {
+async function request(url, options) {
+  const res = await fetch(url, {
+    headers: { 'Content-Type': 'application/json' },
+    ...options,
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !data.success) {
+    throw new Error(data.error || 'Something went wrong.');
+  }
+  return data;
+}
+
+function Timeline({ events: initialEvents = [], canEdit = false }) {
+  const [events, setEvents] = useState(initialEvents);
   const [hoveredIndex, setHoveredIndex] = useState(null);
+  const [editingId, setEditingId] = useState(null);
+  const [adding, setAdding] = useState(false);
 
-  const events = [
-    // {
-    //   title: "Present",
-    //   description: "Currently studying Software Engineering at Cal Poly SLO",
-    //   date: "2025",
-    //   thumbnail: learnByDoing,
-    //   color: "#00D9FF", // Bright cyan
-    //   icon: "🎓",
-    // },
-    {
-      title: "Joined SESLOC Credit Union as Systems Development Engineer Intern",
-      description: "Building systems and internal tools that power credit union operations",
-      date: "June 2026",
-      thumbnail: seslocLogo,
-      color: "#4A9EFF", // SESLOC blue
-      icon: "🏦",
-    },
-    {
-      title: "Hired as a Web Developer at Cal Poly AIP",
-      description: "Delivering web projects across departments, including administrative tooling and official university webpages",
-      date: "January 2026",
-      thumbnail: learnByDoing,
-      color: "#5DFFBF", // Mint teal
-      icon: "💼",
-    },
-    {
-      title: "Joined Hack4Impact Cal Poly as Full Stack Developer",
-      description: "Building full stack applications for non-profit organizations",
-      date: "September 2025",
-      thumbnail: hack4impactLogo,
-      color: "#FF7BC4", // Pink
-      icon: "🌍",
-    },
-    {
-      title: "Transferred to Cal Poly - San Luis Obispo",
-      description: "Graduated Cuesta College, and began studying Software Engineering at Cal Poly SLO",
-      date: "July 2025",
-      thumbnail: learnByDoing,
-      color: "#7B75FF", // Lavender
-      icon: "🚀",
-    },
-    // {
-    //   title: "Graduated from Cuesta College",
-    //   description: "Earned Associate of Science in Math & Computer Science",
-    //   date: "July 2025",
-    //   thumbnail: cuestaLogo,
-    //   color: "#00FFD1", // Bright turquoise
-    //   icon: "🎉",
-    // },
-    {
-      title: "Completed Full Stack Web Development Course on Udemy",
-      description: "Completed Angela Yu's Full Stack Web Development Course",
-      date: "June 2025",
-      thumbnail: udemyLogo,
-      color: "#FFF066", // Yellow
-      icon: "📚",
-    },
-    {
-      title: "Robotics & Programming Instructor at iD Tech - Stanford",
-      description: "Teaching robotics and programming to students ages 10-13",
-      date: "June 2024",
-      thumbnail: stanfordLogo,
-      color: "#6BA8FF", // Sky blue
-      icon: "🤖",
-    },
-    {
-      title: "Joined AI Research Project at Cal Poly SLO",
-      description: "Began working as an AI Researcher with other students at Cal Poly",
-      date: "March 2024",
-      thumbnail: learnByDoing,
-      color: "#FF7BC4", // Pink
-      icon: "🧠",
-    },
-    {
-      title: "Got hired as a tutor at Cuesta College",
-      description: "Tutoring students in computer science, mathematics, and physics",
-      date: "January 2024",
-      thumbnail: cuestaLogo,
-      color: "#FFF066", // Yellow
-      icon: "👨‍🏫",
-    },
-    {
-      title: "Started studying Computer Science at Cuesta College",
-      description: "Began pursuing Associates of Science in Math & Computer Science",
-      date: "August 2022",
-      thumbnail: cuestaLogo,
-      color: "#7B75FF", // Lavender
-      icon: "💻",
-    },
-  ];
+  const startAdding = () => {
+    setEditingId(null);
+    setAdding(true);
+  };
+
+  const startEditing = (id) => {
+    setAdding(false);
+    setEditingId(id);
+  };
+
+  const addEntry = async (values) => {
+    const { items } = await request(ENDPOINT, { method: 'POST', body: JSON.stringify(values) });
+    setEvents(items);
+    setAdding(false);
+  };
+
+  const saveEntry = async (id, values) => {
+    const { items } = await request(`${ENDPOINT}/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(values),
+    });
+    setEvents(items);
+    setEditingId(null);
+  };
+
+  const deleteEntry = async (id) => {
+    const { items } = await request(`${ENDPOINT}/${id}`, { method: 'DELETE' });
+    setEvents(items);
+    setEditingId(null);
+  };
 
   return (
-    <div className="timeline-container">
-      <div className="timeline-line"></div>
-      {events.map((event, index) => (
-        <div 
-          key={index} 
-          className="timeline-item"
-          onMouseEnter={() => setHoveredIndex(index)}
-          onMouseLeave={() => setHoveredIndex(null)}
-          style={{ animationDelay: `${index * 0.2}s` }}
-        >
-          <div className="timeline-node-wrapper">
-            <div 
-              className={`timeline-node ${hoveredIndex === index ? 'hovered' : ''}`}
-              style={{ '--node-color': event.color }}
-            >
-              <div className="timeline-node-glow"></div>
-            </div>
-            <div 
-              className={`timeline-thumbnail ${hoveredIndex === index ? 'hovered' : ''} ${event.title.includes('Udemy') ? 'udemy-thumbnail' : ''} ${event.thumbnail === learnByDoing ? 'calpoly-thumbnail' : ''}`}
-              style={{ '--node-color': event.color }}
-            >
-              <img src={event.thumbnail} alt={event.title} />
-            </div>
-          </div>
-          <div className={`timeline-content ${hoveredIndex === index ? 'hovered' : ''}`}>
-            {event.date && (
-              <div className="timeline-date" style={{ color: event.color }}>
-                {event.date}
-              </div>
-            )}
-            <div className="timeline-title">{event.title}</div>
-            <div className="timeline-description">{event.description}</div>
-          </div>
+    <>
+      {canEdit && (
+        <div className="timeline-toolbar">
+          <button type="button" className="timeline-add" onClick={startAdding} disabled={adding}>
+            + Add entry
+          </button>
         </div>
-      ))}
-    </div>
+      )}
+
+      {canEdit && adding && (
+        <TimelineItemForm
+          fields={config.fields}
+          initialValues={emptyItem(config)}
+          submitLabel="Add to top"
+          onSubmit={addEntry}
+          onCancel={() => setAdding(false)}
+        />
+      )}
+
+      <div className="timeline-container">
+        <div className="timeline-line"></div>
+        {events.map((event, index) => {
+          const isEditing = canEdit && editingId === event.id;
+          return (
+            <div
+              key={event.id}
+              className="timeline-item"
+              onMouseEnter={() => !isEditing && setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              style={{ animationDelay: `${index * 0.2}s` }}
+            >
+              <div className="timeline-node-wrapper">
+                <div
+                  className={`timeline-node ${hoveredIndex === index ? 'hovered' : ''}`}
+                  style={{ '--node-color': event.color }}
+                >
+                  <div className="timeline-node-glow"></div>
+                </div>
+                <div
+                  className={`timeline-thumbnail ${hoveredIndex === index ? 'hovered' : ''} ${event.title.includes('Udemy') ? 'udemy-thumbnail' : ''} ${event.thumbnail === calPolyThumbnail ? 'calpoly-thumbnail' : ''}`}
+                  style={{ '--node-color': event.color }}
+                >
+                  <img src={event.thumbnail} alt={event.title} />
+                </div>
+              </div>
+              <div className={`timeline-content ${hoveredIndex === index ? 'hovered' : ''}`}>
+                {isEditing ? (
+                  <TimelineItemForm
+                    fields={config.fields}
+                    initialValues={event}
+                    submitLabel="Save"
+                    onSubmit={(values) => saveEntry(event.id, values)}
+                    onCancel={() => setEditingId(null)}
+                    onDelete={() => deleteEntry(event.id)}
+                  />
+                ) : (
+                  <>
+                    {event.event_date && (
+                      <div className="timeline-date" style={{ color: event.color }}>
+                        {event.event_date}
+                      </div>
+                    )}
+                    <div className="timeline-title">{event.title}</div>
+                    <div className="timeline-description">{event.description}</div>
+                    {canEdit && (
+                      <button
+                        type="button"
+                        className="timeline-edit"
+                        onClick={() => startEditing(event.id)}
+                      >
+                        Edit
+                      </button>
+                    )}
+                  </>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 }
 
 export default Timeline;
-

@@ -45,6 +45,7 @@ app/
   api/contact/route.js POST /api/contact (Nodemailer)
   api/auth/            POST /api/auth/login, POST /api/auth/logout
   api/content/[page]/  GET (public) and PUT (session required) page copy
+  api/collection/      GET (public); POST/PUT/DELETE (session required) list items
   globals.css
 components/            Shared UI, each with colocated CSS
 db/migrations/         Numbered .sql files, applied by npm run db:migrate
@@ -60,14 +61,17 @@ timeline, project cards, the contact form, and the resume download button.
 
 ## Editable content
 
-The home page's name, intro and About Me text live in Postgres instead of in the
-JSX, so they can be changed from the browser.
+The home page's name, intro, About Me text and timeline entries live in Postgres
+instead of in the JSX, so they can be changed from the browser.
 
 1. Create a Neon project and put its connection string in `DATABASE_URL`.
 2. Pick an `EDIT_PASSWORD` and generate a `SESSION_SECRET`:
    `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.
-3. Run `npm run db:migrate` to create and seed the `home` table.
+3. Run `npm run db:migrate` to create and seed the tables.
 4. Visit `/user`, enter the password, then use the **Edit** button on any block.
+
+Timeline entries additionally get an **+ Add entry** button above the list, which
+adds to the top, and a **Delete** button inside each entry's edit form.
 
 Reading copy is public; every save is authorized on the server against an
 httpOnly, HMAC-signed session cookie. Signed-out visitors get the page with no
@@ -76,6 +80,15 @@ blank line to start a new paragraph — all rendered as React nodes, never HTML.
 
 If `DATABASE_URL` is unset or Neon is unreachable, pages fall back to the
 defaults in `lib/pages.js` rather than erroring.
+
+There are two kinds of editable content, each with its own registry and API.
+
+| | Pages (`lib/pages.js`) | Collections (`lib/collections.js`) |
+| --- | --- | --- |
+| Shape | Fixed blocks of copy | Ordered list of items |
+| Table | One `id = 1` row, a column per block | A row per item, ordered by `position` |
+| API | `/api/content/[page]` | `/api/collection/[collection]` |
+| Example | `home` | `timeline` |
 
 ### Making another page editable
 
@@ -87,8 +100,18 @@ defaults in `lib/pages.js` rather than erroring.
    result plus `await isEditor()` into a client component that wraps each block
    in `<EditableBlock>`.
 
-The `/api/content/[page]` handlers need no changes — only names present in the
-registry are ever accepted or interpolated into SQL.
+### Making another list editable
+
+1. Add a migration creating a table with `id`, `position`, and one column per
+   field.
+2. Add an entry to the `COLLECTIONS` registry in `lib/collections.js`. Each
+   field declares its label, input type, and validation rules, which drive both
+   the server-side checks and the edit form.
+3. In the page's server component, `await getCollectionItems('<name>')` and pass
+   the items plus `await isEditor()` into the client component that renders them.
+
+Neither set of route handlers needs changing — only names present in a registry
+are ever accepted or interpolated into SQL.
 
 ## Environment variables
 
