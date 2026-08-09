@@ -1,0 +1,128 @@
+/* Only rendered for a signed-in editor. The wrapper adds no box of its own, so
+   the surrounding layout stays exactly as it is for public visitors. */
+.editable {
+  position: relative;
+}
+
+.editable-edit {
+  position: absolute;
+  top: -0.5rem;
+  right: 0;
+  z-index: 2;
+  padding: 0.3rem 0.85rem;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 3px;
+  opacity: 0.45;
+  cursor: pointer;
+  transition: opacity 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.editable:hover .editable-edit,
+.editable-edit:focus-visible {
+  opacity: 1;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.7);
+  outline: none;
+}
+
+.editable-open {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.editable-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.editable-input {
+  width: 100%;
+  padding: 0.75rem;
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.editable-input:focus {
+  outline: none;
+  border-color: rgb(107, 168, 255);
+}
+
+.editable-input:disabled {
+  opacity: 0.6;
+}
+
+.editable-hint {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.editable-error {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  color: #ff5757;
+}
+
+.editable-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.editable-button {
+  padding: 0.55rem 1.5rem;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background-color: transparent;
+  background-image: linear-gradient(to right, #ff5757, rgb(107, 168, 255));
+  background-size: 0% 100%;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-size 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease;
+}
+
+.editable-button:hover:not(:disabled),
+.editable-button:focus-visible:not(:disabled) {
+  outline: none;
+  background-size: 100% 100%;
+  border-color: rgba(255, 255, 255, 0.75);
+}
+
+.editable-button-primary {
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.editable-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
