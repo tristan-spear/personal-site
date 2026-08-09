@@ -1,14 +1,15 @@
-/* Timeline edit affordances. Only rendered for a signed-in editor, so none of
-   this affects the public page. */
+/* Shared edit affordances for collections (timeline, projects, experience,
+   education, skills). Only rendered for a signed-in editor, so none of this
+   affects the public page. */
 
-.timeline-toolbar {
+.cms-toolbar {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
-.timeline-add {
+.cms-add {
   padding: 0.6rem 1.5rem;
   font-family: inherit;
   font-size: 0.8rem;
@@ -28,25 +29,19 @@
     border-color 0.3s ease;
 }
 
-.timeline-add:hover:not(:disabled),
-.timeline-add:focus-visible:not(:disabled) {
+.cms-add:hover:not(:disabled),
+.cms-add:focus-visible:not(:disabled) {
   outline: none;
   background-size: 100% 100%;
   border-color: rgba(255, 255, 255, 0.85);
 }
 
-.timeline-add:disabled {
+.cms-add:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }
 
-.timeline-toolbar-error {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  font-size: 0.9rem;
-  color: #ff5757;
-}
-
-.timeline-edit {
+.cms-edit {
   margin-top: 1rem;
   padding: 0.3rem 0.85rem;
   font-family: inherit;
@@ -63,17 +58,37 @@
   transition: opacity 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
-.timeline-item:hover .timeline-edit,
-.timeline-edit:focus-visible {
+.timeline-item:hover .cms-edit,
+.experience-item:hover .cms-edit,
+.education-item:hover .cms-edit,
+.skills-category:hover .cms-edit,
+.cms-card:hover .cms-edit,
+.cms-edit:focus-visible {
   opacity: 1;
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.7);
   outline: none;
 }
 
-/* The add form sits above the timeline; edit forms sit inside an item's
-   content column. */
-.timeline-form {
+/* Wraps a rendered item so its Edit button can sit with it without changing
+   the item's own layout. */
+.cms-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Keep cards the full height of their grid cell so a row stays even. */
+.portfolio-grid .cms-card {
+  align-items: stretch;
+}
+
+.portfolio-grid .cms-card > .project-card {
+  flex: 1;
+}
+
+.cms-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -82,19 +97,21 @@
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.03);
+  text-align: left;
 }
 
-.timeline-content .timeline-form {
+.timeline-content .cms-form,
+.cms-card .cms-form {
   margin-bottom: 0;
 }
 
-.timeline-form-field {
+.cms-form-field {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
 }
 
-.timeline-form-label {
+.cms-form-label {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   font-size: 0.7rem;
   font-weight: 500;
@@ -103,7 +120,7 @@
   color: rgba(255, 255, 255, 0.6);
 }
 
-.timeline-form-input {
+.cms-form-input {
   width: 100%;
   padding: 0.6rem 0.7rem;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
@@ -116,22 +133,32 @@
   resize: vertical;
 }
 
-.timeline-form-input:focus {
+.cms-form-input:focus {
   outline: none;
   border-color: rgb(107, 168, 255);
 }
 
-.timeline-form-input:disabled {
+.cms-form-input:disabled {
   opacity: 0.6;
 }
 
-.timeline-form-color {
+.cms-form-select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.cms-form-select option {
+  background: #111111;
+  color: #ffffff;
+}
+
+.cms-form-color {
   display: flex;
   align-items: center;
   gap: 0.6rem;
 }
 
-.timeline-form-color input[type='color'] {
+.cms-form-color input[type='color'] {
   width: 42px;
   height: 38px;
   padding: 2px;
@@ -142,32 +169,32 @@
   flex-shrink: 0;
 }
 
-.timeline-form-hint {
+.cms-form-hint {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.4);
 }
 
-.timeline-form-error {
+.cms-form-error {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
   font-size: 0.9rem;
   color: #ff5757;
 }
 
-.timeline-form-actions {
+.cms-form-actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 0.75rem;
 }
 
-.timeline-form-confirm {
+.cms-form-confirm {
   display: inline-flex;
   gap: 0.75rem;
 }
 
-.timeline-button {
+.cms-button {
   padding: 0.5rem 1.35rem;
   font-family: inherit;
   font-size: 0.78rem;
@@ -187,36 +214,36 @@
     border-color 0.3s ease;
 }
 
-.timeline-button:hover:not(:disabled),
-.timeline-button:focus-visible:not(:disabled) {
+.cms-button:hover:not(:disabled),
+.cms-button:focus-visible:not(:disabled) {
   outline: none;
   background-size: 100% 100%;
   border-color: rgba(255, 255, 255, 0.75);
 }
 
-.timeline-button-primary {
+.cms-button-primary {
   border-color: rgba(255, 255, 255, 0.6);
 }
 
-.timeline-button-danger {
+.cms-button-danger {
   background-image: none;
   color: #ff8a8a;
   border-color: rgba(255, 87, 87, 0.5);
   margin-left: auto;
 }
 
-.timeline-button-danger:hover:not(:disabled),
-.timeline-button-danger:focus-visible:not(:disabled) {
+.cms-button-danger:hover:not(:disabled),
+.cms-button-danger:focus-visible:not(:disabled) {
   color: #ffffff;
   background-color: rgba(255, 87, 87, 0.85);
   border-color: rgba(255, 87, 87, 0.9);
 }
 
-.timeline-form-confirm .timeline-button-danger {
+.cms-form-confirm .cms-button-danger {
   margin-left: 0;
 }
 
-.timeline-button:disabled {
+.cms-button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
 }

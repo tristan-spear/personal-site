@@ -61,8 +61,10 @@ timeline, project cards, the contact form, and the resume download button.
 
 ## Editable content
 
-The home page's name, intro, About Me text and timeline entries live in Postgres
-instead of in the JSX, so they can be changed from the browser.
+Most of the site's content lives in Postgres instead of in the JSX, so it can be
+changed from the browser: the home page's name, intro, About Me text and
+timeline, the projects on `/projects`, and the education, experience and skills
+on `/resume`.
 
 1. Create a Neon project and put its connection string in `DATABASE_URL`.
 2. Pick an `EDIT_PASSWORD` and generate a `SESSION_SECRET`:
@@ -70,16 +72,22 @@ instead of in the JSX, so they can be changed from the browser.
 3. Run `npm run db:migrate` to create and seed the tables.
 4. Visit `/user`, enter the password, then use the **Edit** button on any block.
 
-Timeline entries additionally get an **+ Add entry** button above the list, which
-adds to the top, and a **Delete** button inside each entry's edit form.
+Lists (timeline, projects, education, experience, skills) additionally get an
+**+ Add** button above them, which adds to the top, and a **Delete** button
+inside each item's edit form. On the projects page each section has its own Add
+button, and an item's section can be changed from its edit form.
 
-Reading copy is public; every save is authorized on the server against an
+Reading content is public; every save is authorized on the server against an
 httpOnly, HMAC-signed session cookie. Signed-out visitors get the page with no
-edit UI at all. Copy supports `**bold**`, a newline for a line break, and a
-blank line to start a new paragraph — all rendered as React nodes, never HTML.
+edit UI at all. Copy supports `**bold**`, `*italic*`, a newline for a line
+break, and a blank line to start a new paragraph — all rendered as React nodes,
+never HTML.
 
-If `DATABASE_URL` is unset or Neon is unreachable, pages fall back to the
-defaults in `lib/pages.js` rather than erroring.
+If `DATABASE_URL` is unset or Neon is unreachable, the home page falls back to
+the defaults in `lib/pages.js` and the timeline to those in `lib/collections.js`.
+The larger collections have no fallback copy and render as empty sections, since
+keeping a second copy of every project and job description in sync with the seed
+was not worth it.
 
 There are two kinds of editable content, each with its own registry and API.
 
@@ -88,7 +96,13 @@ There are two kinds of editable content, each with its own registry and API.
 | Shape | Fixed blocks of copy | Ordered list of items |
 | Table | One `id = 1` row, a column per block | A row per item, ordered by `position` |
 | API | `/api/content/[page]` | `/api/collection/[collection]` |
-| Example | `home` | `timeline` |
+| Example | `home` | `timeline`, `projects`, `education`, `experience`, `skills` |
+
+Collection fields declare a type: `text`, `textarea`, `lines`, `select` or
+`color`. A `lines` field is a list edited as one item per line and stored as
+newline-separated text — that's how bullets, tech tags, skills and project links
+work, which keeps them editable in a plain textarea instead of needing nested
+forms. Project links are written as `Label | https://url` per line.
 
 ### Making another page editable
 

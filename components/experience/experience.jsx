@@ -1,85 +1,77 @@
+'use client';
+
 import React from 'react';
 import ExperienceItem from './experienceItem';
+import EditableItem from '@/components/editable/EditableItem';
+import ItemForm from '@/components/editable/ItemForm';
+import useCollection from '@/components/editable/useCollection';
+import { emptyItem, getCollectionConfig, toLines } from '@/lib/collections';
 import './experience.css';
 
-const learnByDoing = '/assets/learn.png';
-const cuestaLogo = '/assets/cuesta.jpeg';
-const stanfordLogo = '/assets/stanford.png';
-const hack4impactLogo = '/assets/hack4impact.png';
+const config = getCollectionConfig('experience');
 
-function Experience() {
-  const experiences = [
-    {
-      title: "Web Developer",
-      company: "Cal Poly AIP (Academic Innovations & Programs)",
-      location: "San Luis Obispo, CA",
-      date: "Jan. 2026 - Present",
-      thumbnail: learnByDoing,
-      bullets: [
-        "Work under Cal Poly AIP to deliver various web projects under multiple departments across Cal Poly",
-        "Collaborate with Amazon, AWS, and DxHub staff to deliver an internal dashboard showing Canvas course accessibility across Cal Poly at the college and department level, using real datasets to help meet CSU system-wide accessibility standards with UDOIT, Athena, and AWS QuickSight",
-        "Use Drupal 7 and other web content management services to deliver official university webpages for departments and events",
-      ],
-    },
-    {
-      title: "Full Stack Developer",
-      company: "Hack4Impact Cal Poly",
-      location: "San Luis Obispo, CA",
-      date: "Sep. 2025 - Present",
-      thumbnail: hack4impactLogo,
-      bullets: [
-        "Implement full-stack features for nonprofit clients (Ecologistics, Habitat For Humanity) using React, Express, MongoDB, and Next.js, contributing to production code used by real organizations",
-        "Build and integrate REST APIs to support frontend workflows and features, collaborating with designers to translate Figma designs into responsive UI components",
-        "Coordinate development tasks within a 10-person engineering team, working closely with tech leads to scope features, review pull requests, and meet sprint deadlines",
-        "Practice Agile development through sprint planning, stand-ups, and retrospectives, delivering assigned features within sprint timelines",
-      ],
-    },
-    {
-      title: "Programming & Robotics Instructor",
-      company: "iD Tech Camps - Stanford University",
-      location: "Stanford, CA",
-      date: "May 2024 - Aug. 2024",
-      thumbnail: stanfordLogo,
-      bullets: [
-        "Led and instructed week-long engineering courses in VEX robotics and programming, teaching Python and C++ to middle and high school students",
-        "Independently managed classrooms of 10-14 students, adapting instruction to different skill levels while maintaining structured timelines",
-        "Developed lesson plans and technical exercises to reinforce core programming concepts and problem-solving skills",
-      ],
-    },
-    {
-      title: "AI Researcher",
-      company: "Cal Poly, San Luis Obispo",
-      location: "San Luis Obispo, CA",
-      date: "Jan. 2024 - Jun. 2024",
-      thumbnail: learnByDoing,
-      bullets: [
-        "Built an AI-powered chatbot to answer student questions about Cal Poly staff, academics, and senior projects, working in a 5-person research team",
-        "Designed and implemented a user interest survey to collect structured feedback and improve LLM responses through prompt tuning and data refinement",
-        "Managed project milestones and deliverables independently, meeting weekly deadlines, while balancing coursework",
-      ],
-    },
-    {
-      title: "Computer Science Tutor",
-      company: "M.E.S.A Program - Cuesta College",
-      location: "San Luis Obispo, CA",
-      date: "Jan. 2024 - May 2025",
-      thumbnail: cuestaLogo,
-      bullets: [
-        "Provided one-on-one and small group tutoring for core CS classes, including Intro to Programming, Data Structures, Object-Oriented Programming, Computer Organization, and Discrete Math, supporting students across multiple semesters",
-        "Assisted students with Java, Python, C/C++, and Assembly Language, helping debug code and clarify how code executes across different abstraction levels",
-        "Served as lead tutor for the MESA program, completing 400+ tutoring hours, and supporting 30+ students, through sustained, semester-long academic improvement",
-      ],
-    },
-  ];
+function Experience({ items = [], canEdit = false }) {
+  const collection = useCollection('experience', items);
 
   return (
     <section className="experience-section">
       <div className="experience-content">
         <h2 className="experience-title hover-underline">Experience</h2>
+
+        {canEdit && (
+          <div className="cms-toolbar">
+            <button
+              type="button"
+              className="cms-add"
+              onClick={() => collection.startAdding()}
+              disabled={Boolean(collection.addingTo)}
+            >
+              + Add role
+            </button>
+          </div>
+        )}
+
+        {canEdit && collection.addingTo && (
+          <ItemForm
+            fields={config.fields}
+            initialValues={emptyItem(config)}
+            submitLabel="Add to top"
+            onSubmit={collection.add}
+            onCancel={collection.cancel}
+          />
+        )}
+
         <div className="experience-list">
-          {experiences.map((experience, index) => (
-            <ExperienceItem key={index} experience={experience} />
-          ))}
+          {collection.items.map((row) =>
+            canEdit && collection.editingId === row.id ? (
+              <ItemForm
+                key={row.id}
+                fields={config.fields}
+                initialValues={row}
+                submitLabel="Save"
+                onSubmit={(values) => collection.save(row.id, values)}
+                onCancel={collection.cancel}
+                onDelete={() => collection.remove(row.id)}
+              />
+            ) : (
+              <EditableItem
+                key={row.id}
+                canEdit={canEdit}
+                onEdit={() => collection.startEditing(row.id)}
+              >
+                <ExperienceItem
+                  experience={{
+                    title: row.title,
+                    company: row.company,
+                    location: row.location,
+                    date: row.date_range,
+                    thumbnail: row.thumbnail,
+                    bullets: toLines(row.bullets),
+                  }}
+                />
+              </EditableItem>
+            )
+          )}
         </div>
       </div>
     </section>

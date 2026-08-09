@@ -1,87 +1,47 @@
 'use client';
 
 import React, { useState } from 'react';
+import ItemForm from '@/components/editable/ItemForm';
+import useCollection from '@/components/editable/useCollection';
 import { emptyItem, getCollectionConfig } from '@/lib/collections';
-import TimelineItemForm from './TimelineItemForm';
 import './timeline.css';
 
 const calPolyThumbnail = '/assets/cp.png';
 const config = getCollectionConfig('timeline');
-const ENDPOINT = '/api/collection/timeline';
 
-async function request(url, options) {
-  const res = await fetch(url, {
-    headers: { 'Content-Type': 'application/json' },
-    ...options,
-  });
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok || !data.success) {
-    throw new Error(data.error || 'Something went wrong.');
-  }
-  return data;
-}
-
-function Timeline({ events: initialEvents = [], canEdit = false }) {
-  const [events, setEvents] = useState(initialEvents);
+function Timeline({ events = [], canEdit = false }) {
+  const collection = useCollection('timeline', events);
   const [hoveredIndex, setHoveredIndex] = useState(null);
-  const [editingId, setEditingId] = useState(null);
-  const [adding, setAdding] = useState(false);
-
-  const startAdding = () => {
-    setEditingId(null);
-    setAdding(true);
-  };
-
-  const startEditing = (id) => {
-    setAdding(false);
-    setEditingId(id);
-  };
-
-  const addEntry = async (values) => {
-    const { items } = await request(ENDPOINT, { method: 'POST', body: JSON.stringify(values) });
-    setEvents(items);
-    setAdding(false);
-  };
-
-  const saveEntry = async (id, values) => {
-    const { items } = await request(`${ENDPOINT}/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify(values),
-    });
-    setEvents(items);
-    setEditingId(null);
-  };
-
-  const deleteEntry = async (id) => {
-    const { items } = await request(`${ENDPOINT}/${id}`, { method: 'DELETE' });
-    setEvents(items);
-    setEditingId(null);
-  };
 
   return (
     <>
       {canEdit && (
-        <div className="timeline-toolbar">
-          <button type="button" className="timeline-add" onClick={startAdding} disabled={adding}>
+        <div className="cms-toolbar">
+          <button
+            type="button"
+            className="cms-add"
+            onClick={() => collection.startAdding()}
+            disabled={Boolean(collection.addingTo)}
+          >
             + Add entry
           </button>
         </div>
       )}
 
-      {canEdit && adding && (
-        <TimelineItemForm
+      {canEdit && collection.addingTo && (
+        <ItemForm
           fields={config.fields}
           initialValues={emptyItem(config)}
           submitLabel="Add to top"
-          onSubmit={addEntry}
-          onCancel={() => setAdding(false)}
+          onSubmit={collection.add}
+          onCancel={collection.cancel}
         />
       )}
 
       <div className="timeline-container">
         <div className="timeline-line"></div>
-        {events.map((event, index) => {
-          const isEditing = canEdit && editingId === event.id;
+        {collection.items.map((event, index) => {
+          const isEditing = canEdit && collection.editingId === event.id;
           return (
             <div
               key={event.id}
@@ -106,13 +66,13 @@ function Timeline({ events: initialEvents = [], canEdit = false }) {
               </div>
               <div className={`timeline-content ${hoveredIndex === index ? 'hovered' : ''}`}>
                 {isEditing ? (
-                  <TimelineItemForm
+                  <ItemForm
                     fields={config.fields}
                     initialValues={event}
                     submitLabel="Save"
-                    onSubmit={(values) => saveEntry(event.id, values)}
-                    onCancel={() => setEditingId(null)}
-                    onDelete={() => deleteEntry(event.id)}
+                    onSubmit={(values) => collection.save(event.id, values)}
+                    onCancel={collection.cancel}
+                    onDelete={() => collection.remove(event.id)}
                   />
                 ) : (
                   <>
@@ -126,8 +86,8 @@ function Timeline({ events: initialEvents = [], canEdit = false }) {
                     {canEdit && (
                       <button
                         type="button"
-                        className="timeline-edit"
-                        onClick={() => startEditing(event.id)}
+                        className="cms-edit"
+                        onClick={() => collection.startEditing(event.id)}
                       >
                         Edit
                       </button>
