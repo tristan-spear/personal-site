@@ -6,6 +6,7 @@ import ItemForm from '@/components/editable/ItemForm';
 import useCollection from '@/components/editable/useCollection';
 import RichText from '@/components/richText/RichText';
 import { emptyItem, getCollectionConfig } from '@/lib/collections';
+import { mediaUrl } from '@/lib/media';
 
 const config = getCollectionConfig('education');
 
@@ -59,7 +60,7 @@ function Education({ items = [], canEdit = false }) {
                 onEdit={() => collection.startEditing(item.id)}
               >
                 <div className="education-item">
-                  <img src={item.thumbnail} alt={item.school} className="education-thumbnail" />
+                  <img src={mediaUrl(item.thumbnail)} alt={item.school} className="education-thumbnail" />
                   <div className="education-info">
                     <div className="education-degree">{item.degree}</div>
                     <div className="education-school">{item.school}</div>

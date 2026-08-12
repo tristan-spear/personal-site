@@ -21,6 +21,17 @@ function ItemForm({ fields, initialValues, submitLabel, onSubmit, onCancel, onDe
 
   const setField = (name, value) => setDraft((current) => ({ ...current, [name]: value }));
 
+  const uploadFile = async (field, file) => {
+    if (!file) return;
+    const form = new FormData();
+    form.append('file', file);
+    form.append('kind', field.upload);
+    const res = await fetch('/api/uploads', { method: 'POST', body: form });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.success) throw new Error(data.error || 'Could not upload the file.');
+    setField(field.name, data.url);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setBusy(true);
@@ -87,7 +98,12 @@ function ItemForm({ fields, initialValues, submitLabel, onSubmit, onCancel, onDe
       );
     }
 
-    return <input {...common} type="text" />;
+    return (
+      <>
+        <input {...common} type="text" />
+        {field.upload && <input className="cms-form-file" type="file" accept={field.upload === 'pdf' ? 'application/pdf' : 'image/*'} disabled={busy} onChange={async (e) => { try { await uploadFile(field, e.target.files?.[0]); } catch (err) { setError(err.message); } e.target.value = ''; }} />}
+      </>
+    );
   };
 
   return (

@@ -31,6 +31,7 @@ The site runs at http://localhost:3000.
 | `npm start` | Serve the production build |
 | `npm run lint` | Run ESLint |
 | `npm run db:migrate` | Apply pending SQL migrations to Neon |
+| `npm run r2:upload-assets` | Upload `public/assets` to Cloudflare R2 (skips favicon files) |
 
 ## Project structure
 
@@ -145,11 +146,28 @@ settings for production.
 | `DATABASE_URL` | Yes | Neon Postgres connection string (pooled) |
 | `EDIT_PASSWORD` | Yes | Password for `/user`; only ever compared server-side |
 | `SESSION_SECRET` | Yes | Random 32+ byte hex string used to sign session cookies |
+| `R2_ACCOUNT_ID` | Yes for uploads | Cloudflare account ID used by the R2 S3 endpoint |
+| `R2_ACCESS_KEY_ID` | Yes for uploads | R2 S3 API token access key ID |
+| `R2_SECRET_ACCESS_KEY` | Yes for uploads | R2 S3 API token secret; keep server-only |
+| `R2_BUCKET_NAME` | Yes for uploads | The R2 bucket receiving the files |
+| `R2_PUBLIC_URL` | Yes for uploads | R2 custom domain or public `r2.dev` URL |
+| `NEXT_PUBLIC_R2_PUBLIC_URL` | Yes to render R2 media | Same public URL, exposed to the browser |
 
 Without the SMTP variables the site still builds and runs; the contact form
 returns a "not configured to send mail" error. Without `DATABASE_URL` pages
 render their default copy, and without `EDIT_PASSWORD`/`SESSION_SECRET` signing
 in is disabled.
+
+### Cloudflare R2 setup
+
+Create an R2 bucket, then open **R2 → Overview → Manage in API Tokens → Create
+Account API token**. Give it **Object Read & Write**, scoped to this bucket, and
+copy the Access Key ID and Secret Access Key immediately. The S3 endpoint is
+`https://<ACCOUNT_ID>.r2.cloudflarestorage.com`. Set `R2_PUBLIC_URL` to an R2
+custom domain (recommended) or the bucket's public `r2.dev` URL, and set
+`NEXT_PUBLIC_R2_PUBLIC_URL` to the same value. After deploying those variables,
+run `npm run r2:upload-assets` once. The editor's image pickers and resume PDF
+uploader then use R2 automatically.
 
 ## Deployment
 

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { mediaUrl } from '@/lib/media';
 import './projectCard.css';
 
 function ProjectCard({ project }) {
@@ -15,13 +16,13 @@ function ProjectCard({ project }) {
   const mediaContent =
     media.type === 'iframe' ? (
       <iframe
-        src={media.src}
+        src={mediaUrl(media.src)}
         title={title}
         scrolling="no"
         className="project-media-iframe"
       />
     ) : (
-      <img src={media.src} alt={title} className="project-media-image" />
+      <img src={mediaUrl(media.src)} alt={title} className="project-media-image" />
     );
 
   const linkIconClass = (label, variant) => {
@@ -45,7 +46,7 @@ function ProjectCard({ project }) {
         <div className="project-card-preview">
           {media.type === 'iframe' ? (
             <img
-              src={media.previewImage || media.src}
+                src={mediaUrl(media.previewImage || media.src)}
               alt={title}
               className="project-media-image"
             />

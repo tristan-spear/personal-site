@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import ItemForm from '@/components/editable/ItemForm';
 import useCollection from '@/components/editable/useCollection';
+import { mediaUrl } from '@/lib/media';
 import { emptyItem, getCollectionConfig } from '@/lib/collections';
 import './timeline.css';
 
@@ -61,7 +62,7 @@ function Timeline({ events = [], canEdit = false }) {
                   className={`timeline-thumbnail ${hoveredIndex === index ? 'hovered' : ''} ${event.title.includes('Udemy') ? 'udemy-thumbnail' : ''} ${event.thumbnail === calPolyThumbnail ? 'calpoly-thumbnail' : ''}`}
                   style={{ '--node-color': event.color }}
                 >
-                  <img src={event.thumbnail} alt={event.title} />
+                  <img src={mediaUrl(event.thumbnail)} alt={event.title} />
                 </div>
               </div>
               <div className={`timeline-content ${hoveredIndex === index ? 'hovered' : ''}`}>

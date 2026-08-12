@@ -1,10 +1,11 @@
 import React from 'react';
+import { mediaUrl } from '@/lib/media';
 import './experience.css';
 
 function ExperienceItem({ experience }) {
   return (
     <div className="experience-item">
-      <img src={experience.thumbnail} alt={experience.company} className="experience-thumbnail" />
+      <img src={mediaUrl(experience.thumbnail)} alt={experience.company} className="experience-thumbnail" />
       <div className="experience-info">
         <div className="experience-header">
           <div className="experience-title-company">

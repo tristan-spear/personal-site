@@ -5,6 +5,7 @@ import Timeline from '@/components/timeline/timeline';
 import PixelSnow from '@/components/pixelSnow/PixelSnow';
 import EditableBlock from '@/components/editable/EditableBlock';
 import RichText from '@/components/richText/RichText';
+import { mediaUrl } from '@/lib/media';
 
 const headshot = '/assets/headshot.jpeg';
 const cuestaLogo = '/assets/cuesta.jpeg';
@@ -100,7 +101,7 @@ function HomeContent({ content: initialContent, timeline, canEdit }) {
             </EditableBlock>
           </div>
           <div className="hero-image-container">
-            <img src={headshot} alt={content.name} className="hero-headshot" />
+          <img src={mediaUrl(headshot)} alt={content.name} className="hero-headshot" />
           </div>
         </div>
       </section>
@@ -142,7 +143,7 @@ function HomeContent({ content: initialContent, timeline, canEdit }) {
           <h2 className="education-title">Education</h2>
           <div className="education-list">
             <div className="education-item">
-              <img src={learnByDoing} alt="Cal Poly San Luis Obispo" className="education-thumbnail" />
+              <img src={mediaUrl(learnByDoing)} alt="Cal Poly San Luis Obispo" className="education-thumbnail" />
               <div className="education-info">
                 <div className="education-degree">Bachelor of Science in Software Engineering</div>
                 <div className="education-school">Cal Poly - San Luis Obispo</div>
@@ -150,7 +151,7 @@ function HomeContent({ content: initialContent, timeline, canEdit }) {
               </div>
             </div>
             <div className="education-item">
-              <img src={cuestaLogo} alt="Cuesta College" className="education-thumbnail" style={{ }} />
+              <img src={mediaUrl(cuestaLogo)} alt="Cuesta College" className="education-thumbnail" style={{ }} />
               <div className="education-info">
                 <div className="education-degree">Associate of Science in Math & Computer Science</div>
                 <div className="education-school">Cuesta College, San Luis Obispo</div>

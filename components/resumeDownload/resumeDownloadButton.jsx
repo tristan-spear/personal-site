@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
+import { mediaUrl } from '@/lib/media';
 
-const resumePdf = '/assets/Tristan_Spear_Resume.pdf';
+const resumePdf = mediaUrl('/assets/Tristan_Spear_Resume.pdf');
 
 function ResumeDownloadButton() {
   const handleDownload = () => {
