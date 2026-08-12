@@ -7,7 +7,6 @@ import EditableBlock from '@/components/editable/EditableBlock';
 import RichText from '@/components/richText/RichText';
 import { mediaUrl } from '@/lib/media';
 
-const headshot = '/assets/headshot.jpeg';
 const cuestaLogo = '/assets/cuesta.jpeg';
 const learnByDoing = '/assets/cp.png';
 
@@ -100,9 +99,17 @@ function HomeContent({ content: initialContent, timeline, canEdit }) {
               </p>
             </EditableBlock>
           </div>
-          <div className="hero-image-container">
-          <img src={mediaUrl(headshot)} alt={content.name} className="hero-headshot" />
-          </div>
+          <EditableBlock
+            canEdit={canEdit}
+            label="Profile image"
+            value={content.profile_image}
+            onSave={(value) => saveField('profile_image', value)}
+            upload="image"
+          >
+            <div className="hero-image-container">
+              <img src={mediaUrl(content.profile_image)} alt={content.name} className="hero-headshot" />
+            </div>
+          </EditableBlock>
         </div>
       </section>
 

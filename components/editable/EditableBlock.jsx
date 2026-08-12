@@ -10,7 +10,7 @@ import './editable.css';
  * visitors get exactly the markup the page had before the CMS existed. The
  * server decides `canEdit`; this component is only ever a convenience.
  */
-function EditableBlock({ canEdit, label, value, onSave, rows = 4, children }) {
+function EditableBlock({ canEdit, label, value, onSave, rows = 4, children, upload }) {
   const inputId = useId();
   const [editing, setEditing] = useState(false);
   const [draft, setDraft] = useState(value);
@@ -39,6 +39,25 @@ function EditableBlock({ canEdit, label, value, onSave, rows = 4, children }) {
       setEditing(false);
     } catch (err) {
       setError(err.message || 'Could not save.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const uploadFile = async (file) => {
+    if (!file) return;
+    setSaving(true);
+    setError(null);
+    try {
+      const form = new FormData();
+      form.append('file', file);
+      form.append('kind', upload);
+      const res = await fetch('/api/uploads', { method: 'POST', body: form });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.success) throw new Error(data.error || 'Could not upload the file.');
+      setDraft(data.url);
+    } catch (err) {
+      setError(err.message || 'Could not upload the file.');
     } finally {
       setSaving(false);
     }
@@ -80,6 +99,15 @@ function EditableBlock({ canEdit, label, value, onSave, rows = 4, children }) {
         disabled={saving}
         autoFocus
       />
+      {upload && (
+        <input
+          className="editable-file"
+          type="file"
+          accept="image/*"
+          onChange={(e) => { uploadFile(e.target.files?.[0]); e.target.value = ''; }}
+          disabled={saving}
+        />
+      )}
       <p className="editable-hint">
         **bold** is kept. Enter starts a new line, a blank line starts a new
         paragraph. Esc cancels, ⌘/Ctrl + Enter saves.

@@ -72,6 +72,11 @@
   opacity: 0.6;
 }
 
+.editable-file {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.8rem;
+}
+
 .editable-hint {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
