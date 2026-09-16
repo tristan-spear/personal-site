@@ -7,7 +7,7 @@ Tristan Spear's personal site, built with Next.js (App Router) and deployed on V
 - Next.js 16 (App Router, Turbopack, JavaScript)
 - React 19
 - Bootstrap Icons (`bi bi-*`) + hand-written CSS
-- Nodemailer for the contact form
+- Resend for the contact form
 - Neon Postgres (`@neondatabase/serverless`) for editable page copy
 
 ## Getting started
@@ -43,7 +43,7 @@ app/
   resume/page.jsx      /resume
   contact/page.jsx     /contact
   user/page.jsx        /user (password form / edit-mode status)
-  api/contact/route.js POST /api/contact (Nodemailer)
+  api/contact/route.js POST /api/contact (Resend)
   api/auth/            POST /api/auth/login, POST /api/auth/logout
   api/content/[page]/  GET (public) and PUT (session required) page copy
   api/collection/      GET (public); POST/PUT/DELETE (session required) list items
@@ -136,13 +136,9 @@ settings for production.
 | Variable | Required | Description |
 | --- | --- | --- |
 | `NEXT_PUBLIC_CONTACT_EMAIL` | No | Email shown on the contact page |
-| `SMTP_HOST` | Yes | SMTP server hostname |
-| `SMTP_PORT` | No | SMTP port (defaults to `587`) |
-| `SMTP_SECURE` | No | `true` to use TLS on connect |
-| `SMTP_USER` | Yes | SMTP username |
-| `SMTP_PASS` | Yes | SMTP password or app password |
-| `SMTP_FROM` | No | "From" address (defaults to `SMTP_USER`) |
+| `RESEND_API_KEY` | Yes | Resend API key for the contact form |
 | `CONTACT_TO` | Yes | Where contact form submissions are delivered |
+| `RESEND_FROM` | No | Verified sender address (defaults to `Contact Form <onboarding@resend.dev>`) |
 | `DATABASE_URL` | Yes | Neon Postgres connection string (pooled) |
 | `EDIT_PASSWORD` | Yes | Password for `/user`; only ever compared server-side |
 | `SESSION_SECRET` | Yes | Random 32+ byte hex string used to sign session cookies |
@@ -153,8 +149,9 @@ settings for production.
 | `R2_PUBLIC_URL` | Yes for uploads | R2 custom domain or public `r2.dev` URL |
 | `NEXT_PUBLIC_R2_PUBLIC_URL` | Yes to render R2 media | Same public URL, exposed to the browser |
 
-Without the SMTP variables the site still builds and runs; the contact form
-returns a "not configured to send mail" error. Without `DATABASE_URL` pages
+Without `RESEND_API_KEY` and `CONTACT_TO` the site still builds and runs; the
+contact form returns a "not configured to send mail" error. Without
+`DATABASE_URL` pages
 render their default copy, and without `EDIT_PASSWORD`/`SESSION_SECRET` signing
 in is disabled.
 

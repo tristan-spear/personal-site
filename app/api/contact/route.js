@@ -1,28 +1,17 @@
 import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 export const runtime = 'nodejs';
 
-const requiredEnv = ['SMTP_HOST', 'SMTP_USER', 'SMTP_PASS', 'CONTACT_TO'];
-const missing = requiredEnv.filter((key) => !process.env[key]);
-if (missing.length) {
+const resendApiKey = process.env.RESEND_API_KEY;
+const resend = resendApiKey ? new Resend(resendApiKey) : null;
+
+if (!resendApiKey || !process.env.CONTACT_TO) {
+  const missing = ['RESEND_API_KEY', 'CONTACT_TO'].filter((key) => !process.env[key]);
   console.warn(
     `Missing env: ${missing.join(', ')}. Set them in .env.local (or your Vercel project settings) for the contact form to send email.`
   );
 }
-
-const transporter =
-  process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS
-    ? nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: Number(process.env.SMTP_PORT) || 587,
-        secure: process.env.SMTP_SECURE === 'true',
-        auth: {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS,
-        },
-      })
-    : null;
 
 export async function POST(request) {
   let body;
@@ -53,19 +42,22 @@ export async function POST(request) {
     );
   }
 
-  if (!transporter) {
-    console.error('Nodemailer transporter not configured');
+  if (!resend) {
+    console.error('Resend is not configured');
     return NextResponse.json(
       { success: false, error: 'Server is not configured to send mail.' },
       { status: 500 }
     );
   }
 
+  const fromAddress =
+    process.env.RESEND_FROM || 'Contact Form <onboarding@resend.dev>';
+
   try {
-    await transporter.sendMail({
-      from: process.env.SMTP_FROM || process.env.SMTP_USER,
+    const { error } = await resend.emails.send({
+      from: fromAddress,
       to: toEmail,
-      replyTo: email,
+      replyTo: email.trim(),
       subject: `[Contact] ${subject.trim()}`,
       text: `From: ${name.trim()} <${email.trim()}>\n\nSubject: ${subject.trim()}\n\n${message.trim()}`,
       html: `
@@ -75,6 +67,18 @@ export async function POST(request) {
         <p>${escapeHtml(message.trim()).replace(/\n/g, '<br>')}</p>
       `,
     });
+
+    if (error) {
+      console.error('Contact send error:', error);
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'Failed to send message. Please try again later.',
+        },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error('Contact send error:', err);
