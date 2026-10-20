@@ -10,9 +10,13 @@ function Header() {
   const navLinks = [
     { path: '/', label: 'Home' },
     { path: '/projects', label: 'Projects' },
+    { path: '/blog', label: 'Blogs' },
     //{ path: '/resume', label: 'Resume' },
     { path: '/contact', label: 'Contact' },
   ];
+
+  const isActive = (path) =>
+    path === '/' ? pathname === '/' : pathname === path || pathname.startsWith(`${path}/`);
 
   return (
     <header className="header">
@@ -35,7 +39,7 @@ function Header() {
             <Link
               key={link.path}
               href={link.path}
-              className={`nav-link ${pathname === link.path ? 'active' : ''}`}
+              className={`nav-link ${isActive(link.path) ? 'active' : ''}`}
             >
               <span className="nav-link-text">{link.label}</span>
               <span className="nav-link-underline"></span>

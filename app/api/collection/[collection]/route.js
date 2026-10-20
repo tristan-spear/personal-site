@@ -1,10 +1,11 @@
 import { NextResponse } from 'next/server';
-import { revalidatePath } from 'next/cache';
 import { isEditor } from '@/lib/auth';
 import {
+  collectionWriteError,
   createCollectionItem,
   getCollectionItems,
   listCollectionItems,
+  revalidateCollection,
   validateItem,
 } from '@/lib/content';
 import { getCollectionConfig } from '@/lib/collections';
@@ -52,10 +53,14 @@ export async function POST(request, { params }) {
   try {
     const created = await createCollectionItem(collection, values);
     const items = await listCollectionItems(collection);
-    revalidatePath(config.path);
+    revalidateCollection(config);
     return NextResponse.json({ success: true, id: created.id, items }, { status: 201 });
   } catch (err) {
     console.error(`Failed to add to "${collection}":`, err);
+    const known = collectionWriteError(err);
+    if (known) {
+      return NextResponse.json({ success: false, error: known.error }, { status: known.status });
+    }
     return NextResponse.json(
       { success: false, error: 'Could not add the entry. Please try again.' },
       { status: 500 }

@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
-import { revalidatePath } from 'next/cache';
 import { isEditor } from '@/lib/auth';
 import {
+  collectionWriteError,
   deleteCollectionItem,
   listCollectionItems,
+  revalidateCollection,
   updateCollectionItem,
   validateItem,
 } from '@/lib/content';
@@ -59,10 +60,14 @@ export async function PUT(request, { params }) {
       return NextResponse.json({ success: false, error: 'That entry no longer exists.' }, { status: 404 });
     }
     const items = await listCollectionItems(collection);
-    revalidatePath(config.path);
+    revalidateCollection(config);
     return NextResponse.json({ success: true, items });
   } catch (err) {
     console.error(`Failed to update "${collection}" item ${id}:`, err);
+    const known = collectionWriteError(err);
+    if (known) {
+      return NextResponse.json({ success: false, error: known.error }, { status: known.status });
+    }
     return NextResponse.json(
       { success: false, error: 'Could not save changes. Please try again.' },
       { status: 500 }
@@ -80,7 +85,7 @@ export async function DELETE(request, { params }) {
       return NextResponse.json({ success: false, error: 'That entry no longer exists.' }, { status: 404 });
     }
     const items = await listCollectionItems(collection);
-    revalidatePath(config.path);
+    revalidateCollection(config);
     return NextResponse.json({ success: true, items });
   } catch (err) {
     console.error(`Failed to delete "${collection}" item ${id}:`, err);

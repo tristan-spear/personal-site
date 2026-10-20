@@ -16,6 +16,7 @@ function ItemForm({ fields, initialValues, submitLabel, onSubmit, onCancel, onDe
     Object.fromEntries(fields.map((field) => [field.name, initialValues[field.name] ?? '']))
   );
   const [busy, setBusy] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [confirmingDelete, setConfirmingDelete] = useState(false);
   const [error, setError] = useState(null);
 
@@ -30,6 +31,49 @@ function ItemForm({ fields, initialValues, submitLabel, onSubmit, onCancel, onDe
     const data = await res.json().catch(() => ({}));
     if (!res.ok || !data.success) throw new Error(data.error || 'Could not upload the file.');
     setField(field.name, data.url);
+  };
+
+  const uploadImages = async (field, fileList) => {
+    const files = [...(fileList ?? [])];
+    if (!files.length) return;
+    setUploading(true);
+    setError(null);
+    const uploaded = [];
+    try {
+      for (const file of files) {
+        const form = new FormData();
+        form.append('file', file);
+        form.append('kind', 'image');
+        const res = await fetch('/api/uploads', { method: 'POST', body: form });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.success) throw new Error(data.error || 'Could not upload the photo.');
+        uploaded.push(data.url);
+      }
+    } catch (err) {
+      setError(err.message || 'Could not upload the photo.');
+    } finally {
+      if (uploaded.length) {
+        setDraft((current) => {
+          const existing = String(current[field.name] ?? '')
+            .split('\n')
+            .map((line) => line.trim())
+            .filter(Boolean);
+          return { ...current, [field.name]: [...existing, ...uploaded].join('\n') };
+        });
+      }
+      setUploading(false);
+    }
+  };
+
+  const removeImage = (field, url) => {
+    setDraft((current) => ({
+      ...current,
+      [field.name]: String(current[field.name] ?? '')
+        .split('\n')
+        .map((line) => line.trim())
+        .filter((line) => line && line !== url)
+        .join('\n'),
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -63,7 +107,7 @@ function ItemForm({ fields, initialValues, submitLabel, onSubmit, onCancel, onDe
       value,
       maxLength: field.maxLength,
       placeholder: field.placeholder,
-      disabled: busy,
+      disabled: busy || uploading,
       onChange: (e) => setField(field.name, e.target.value),
     };
 
@@ -80,7 +124,52 @@ function ItemForm({ fields, initialValues, submitLabel, onSubmit, onCancel, onDe
     }
 
     if (field.type === 'textarea' || field.type === 'lines') {
-      return <textarea {...common} rows={field.type === 'lines' ? 6 : 3} />;
+      return <textarea {...common} rows={field.rows || (field.type === 'lines' ? 6 : 3)} />;
+    }
+
+    if (field.type === 'date') {
+      return <input {...common} type="date" />;
+    }
+
+    if (field.type === 'images') {
+      const urls = String(value)
+        .split('\n')
+        .map((line) => line.trim())
+        .filter(Boolean);
+      return (
+        <div className="cms-form-photos">
+          {urls.length > 0 && (
+            <div className="cms-form-photo-grid">
+              {urls.map((url) => (
+                <div className="cms-form-photo" key={url}>
+                  <img src={url} alt="" />
+                  <button
+                    type="button"
+                    className="cms-form-photo-remove"
+                    onClick={() => removeImage(field, url)}
+                    disabled={busy || uploading}
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+          <input
+            id={id}
+            className="cms-form-file"
+            type="file"
+            accept="image/*"
+            multiple
+            disabled={busy || uploading}
+            onChange={async (e) => {
+              await uploadImages(field, e.target.files);
+              e.target.value = '';
+            }}
+          />
+          {uploading && <span className="cms-form-hint">Uploading...</span>}
+        </div>
+      );
     }
 
     if (field.type === 'color') {
@@ -90,7 +179,7 @@ function ItemForm({ fields, initialValues, submitLabel, onSubmit, onCancel, onDe
             type="color"
             aria-label={`${field.label} swatch`}
             value={/^#[0-9a-f]{6}$/i.test(value) ? value : '#5dffbf'}
-            disabled={busy}
+            disabled={busy || uploading}
             onChange={(e) => setField(field.name, e.target.value)}
           />
           <input {...common} type="text" />
@@ -101,14 +190,14 @@ function ItemForm({ fields, initialValues, submitLabel, onSubmit, onCancel, onDe
     return (
       <>
         <input {...common} type="text" />
-        {field.upload && <input className="cms-form-file" type="file" accept={field.upload === 'pdf' ? 'application/pdf' : 'image/*'} disabled={busy} onChange={async (e) => { try { await uploadFile(field, e.target.files?.[0]); } catch (err) { setError(err.message); } e.target.value = ''; }} />}
+        {field.upload && <input className="cms-form-file" type="file" accept={field.upload === 'pdf' ? 'application/pdf' : 'image/*'} disabled={busy || uploading} onChange={async (e) => { try { await uploadFile(field, e.target.files?.[0]); } catch (err) { setError(err.message); } e.target.value = ''; }} />}
       </>
     );
   };
 
   return (
     <form className="cms-form" onSubmit={handleSubmit}>
-      {fields.map((field) => {
+      {fields.filter((field) => !field.hidden).map((field) => {
         const id = `cms-${field.name}`;
         const hint = field.hint || (field.type === 'lines' ? 'One per line.' : null);
         return (
@@ -129,10 +218,10 @@ function ItemForm({ fields, initialValues, submitLabel, onSubmit, onCancel, onDe
       )}
 
       <div className="cms-form-actions">
-        <button type="submit" className="cms-button cms-button-primary" disabled={busy}>
+        <button type="submit" className="cms-button cms-button-primary" disabled={busy || uploading}>
           {busy ? 'Saving...' : submitLabel}
         </button>
-        <button type="button" className="cms-button" onClick={onCancel} disabled={busy}>
+        <button type="button" className="cms-button" onClick={onCancel} disabled={busy || uploading}>
           Cancel
         </button>
 

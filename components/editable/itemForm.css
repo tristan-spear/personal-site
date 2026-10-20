@@ -148,6 +148,59 @@
   font-size: 0.8rem;
 }
 
+.cms-form-input[type='date'] {
+  color-scheme: dark;
+}
+
+.cms-form-photos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cms-form-photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.75rem;
+}
+
+.cms-form-photo {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: #111111;
+}
+
+.cms-form-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.cms-form-photo-remove {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  padding: 0.2rem 0.45rem;
+  font-family: inherit;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.cms-form-photo-remove:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 .cms-form-select {
   appearance: none;
   cursor: pointer;

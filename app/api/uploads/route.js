@@ -3,7 +3,7 @@ import { isEditor } from '@/lib/auth';
 import { hasR2, putR2Object } from '@/lib/r2';
 
 export const runtime = 'nodejs';
-const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
+const MAX_IMAGE_BYTES = 15 * 1024 * 1024;
 const MAX_PDF_BYTES = 15 * 1024 * 1024;
 const IMAGE_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp', 'image/gif', 'image/svg+xml']);
 
