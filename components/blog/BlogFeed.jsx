@@ -6,6 +6,7 @@ import EditableItem from '@/components/editable/EditableItem';
 import ItemForm from '@/components/editable/ItemForm';
 import useCollection from '@/components/editable/useCollection';
 import RichText from '@/components/richText/RichText';
+import CardDeckCarousel from '@/components/ui/card-deck-carousel';
 import { emptyItem, getCollectionConfig, toLines } from '@/lib/collections';
 import { mediaUrl } from '@/lib/media';
 
@@ -39,6 +40,21 @@ function PostBody({ text }) {
     ));
 }
 
+function wrapIndex(index, count) {
+  if (!count) return 0;
+  return ((index % count) + count) % count;
+}
+
+function galleryItems(photos, location) {
+  return photos.map((photo, index) => ({
+    src: mediaUrl(photo),
+    alt:
+      photos.length > 1
+        ? `${location}, photo ${index + 1} of ${photos.length}`
+        : location,
+  }));
+}
+
 function BlogFeed({ blog, posts = [], canEdit = false }) {
   const collection = useCollection('blog_posts', posts);
   const [active, setActive] = useState(null);
@@ -48,15 +64,28 @@ function BlogFeed({ blog, posts = [], canEdit = false }) {
     .filter((post) => post.blog_slug === blog.slug)
     .sort(newestFirst);
 
+  const isOpen = Boolean(active);
+  const current = active?.items[active.index];
+
   useEffect(() => {
-    if (!active) return undefined;
+    if (!isOpen) return undefined;
     closeRef.current?.focus();
     const onKey = (event) => {
-      if (event.key === 'Escape') setActive(null);
+      if (event.key === 'Escape') {
+        setActive(null);
+        return;
+      }
+      if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+      event.preventDefault();
+      const dir = event.key === 'ArrowRight' ? 1 : -1;
+      setActive((gallery) => {
+        if (!gallery || gallery.items.length < 2) return gallery;
+        return { items: gallery.items, index: wrapIndex(gallery.index + dir, gallery.items.length) };
+      });
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [active]);
+  }, [isOpen]);
 
   return (
     <div className="blog">
@@ -138,12 +167,12 @@ function BlogFeed({ blog, posts = [], canEdit = false }) {
         </div>
       </div>
 
-      {active && (
+      {active && current && (
         <div
           className="blog-lightbox"
           role="dialog"
           aria-modal="true"
-          aria-label={active.alt}
+          aria-label={current.alt}
           onClick={() => setActive(null)}
         >
           <button
@@ -154,11 +183,39 @@ function BlogFeed({ blog, posts = [], canEdit = false }) {
           >
             Close
           </button>
-          <img
-            src={active.src}
-            alt={active.alt}
-            onClick={(event) => event.stopPropagation()}
-          />
+          <div className="blog-lightbox-frame" onClick={(event) => event.stopPropagation()}>
+            {active.items.length > 1 && (
+              <button
+                type="button"
+                className="blog-lightbox-nav blog-lightbox-prev"
+                aria-label="Previous photo"
+                onClick={() => {
+                  setActive((gallery) => ({
+                    items: gallery.items,
+                    index: wrapIndex(gallery.index - 1, gallery.items.length),
+                  }));
+                }}
+              >
+                <i className="bi bi-chevron-left" aria-hidden="true" />
+              </button>
+            )}
+            <img src={current.src} alt={current.alt} />
+            {active.items.length > 1 && (
+              <button
+                type="button"
+                className="blog-lightbox-nav blog-lightbox-next"
+                aria-label="Next photo"
+                onClick={() => {
+                  setActive((gallery) => ({
+                    items: gallery.items,
+                    index: wrapIndex(gallery.index + 1, gallery.items.length),
+                  }));
+                }}
+              >
+                <i className="bi bi-chevron-right" aria-hidden="true" />
+              </button>
+            )}
+          </div>
         </div>
       )}
     </div>
@@ -168,26 +225,35 @@ function BlogFeed({ blog, posts = [], canEdit = false }) {
 function PhotoGrid({ photos, location, onOpen }) {
   if (!photos.length) return null;
 
+  const items = galleryItems(photos, location);
+
+  if (items.length === 1) {
+    return (
+      <div className="blog-gallery">
+        <button
+          type="button"
+          className="blog-photo"
+          onClick={() => onOpen({ items, index: 0 })}
+        >
+          <img src={items[0].src} alt={items[0].alt} loading="lazy" decoding="async" />
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <div className={`blog-gallery${photos.length === 1 ? ' blog-gallery-single' : ''}`}>
-      {photos.map((photo, index) => {
-        const alt =
-          photos.length > 1
-            ? `${location}, photo ${index + 1} of ${photos.length}`
-            : location;
-        const src = mediaUrl(photo);
-        return (
-          <button
-            key={photo}
-            type="button"
-            className="blog-photo"
-            onClick={() => onOpen({ src, alt })}
-          >
-            <img src={src} alt={alt} loading="lazy" />
-          </button>
-        );
-      })}
-    </div>
+    <CardDeckCarousel
+      cardWidth="100%"
+      aspect="3 / 2"
+      scatter={8}
+      autoplay={0}
+      ariaLabel={`${location} photos`}
+      slides={items.map((item) => ({
+        image: item.src,
+        alt: item.alt,
+      }))}
+      onSelect={(selected) => onOpen({ items, index: selected.index ?? 0 })}
+    />
   );
 }
 

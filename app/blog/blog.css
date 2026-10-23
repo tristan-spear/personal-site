@@ -1,6 +1,7 @@
 .blog {
   width: 100%;
   min-height: 100vh;
+  overflow-x: hidden;
   background: #000000;
   color: #ffffff;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
@@ -14,7 +15,7 @@
 }
 
 .blog-wrap-post {
-  max-width: 880px;
+  max-width: 1280px;
 }
 
 .blog-back {
@@ -205,14 +206,10 @@
 }
 
 .blog-gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
   margin-bottom: 1.5rem;
-}
-
-.blog-gallery-single {
-  grid-template-columns: 1fr;
 }
 
 .blog-photo {
@@ -222,25 +219,14 @@
   border: 0;
   border-radius: 10px;
   overflow: hidden;
-  background: #111111;
+  background: transparent;
   cursor: zoom-in;
 }
 
 .blog-photo img {
   width: 100%;
-  aspect-ratio: 3 / 2;
-  object-fit: cover;
+  height: auto;
   display: block;
-  transition: transform 0.45s ease;
-}
-
-.blog-gallery-single .blog-photo img {
-  aspect-ratio: 16 / 10;
-}
-
-.blog-photo:hover img,
-.blog-photo:focus-visible img {
-  transform: scale(1.03);
 }
 
 .blog-photo:focus-visible {
@@ -270,11 +256,19 @@
   background: rgba(0, 0, 0, 0.9);
 }
 
+.blog-lightbox-frame {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+  max-height: calc(100vh - 6rem);
+}
+
 .blog-lightbox img {
-  max-width: min(1100px, 100%);
-  max-height: calc(100vh - 7rem);
+  max-width: 100%;
+  max-height: calc(100vh - 6rem);
+  width: auto;
+  height: auto;
   object-fit: contain;
-  border-radius: 8px;
 }
 
 .blog-lightbox-close {
@@ -299,12 +293,64 @@
   outline: none;
 }
 
+.blog-lightbox-nav {
+  appearance: none;
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+  width: 72px;
+  height: 72px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transform: translateY(-50%);
+  backdrop-filter: blur(8px);
+}
+
+.blog-lightbox-prev {
+  right: 100%;
+  margin-right: 14px;
+}
+
+.blog-lightbox-next {
+  left: 100%;
+  margin-left: 14px;
+}
+
+.blog-lightbox-nav i {
+  font-size: 1.85rem;
+  line-height: 1;
+}
+
+.blog-lightbox-nav:hover,
+.blog-lightbox-nav:focus-visible {
+  background: #ffffff;
+  color: #111111;
+  border-color: #ffffff;
+  outline: none;
+}
+
 @media (max-width: 768px) {
   .blog-wrap {
     padding: 3rem 1.5rem 4rem;
   }
 
-  .blog-gallery {
-    grid-template-columns: 1fr;
+  .blog-lightbox-nav {
+    width: 60px;
+    height: 60px;
+  }
+
+  .blog-lightbox-prev {
+    margin-right: 10px;
+  }
+
+  .blog-lightbox-next {
+    margin-left: 10px;
   }
 }
